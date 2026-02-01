@@ -1,0 +1,9 @@
+./UVM_TX/TX_if.sv
+./UVM_TX/TX_seq_item.sv
+./UVM_TX/TX_config_obj.sv
+./UVM_TX/TX_cov.sv
+./UVM_TX/TX_monitor.sv
+./UVM_TX/TX_agent.sv
+./UVM_TX/TX_scoreboard.sv
+./UVM_TX/TX_env.sv
+

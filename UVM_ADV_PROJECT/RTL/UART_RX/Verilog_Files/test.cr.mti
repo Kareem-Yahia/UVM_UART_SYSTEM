@@ -1,0 +1,9 @@
+{D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv} {0 {vlog -work work -vopt -sv -stats=none {D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv}
+QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
+** Error: (vlog-13069) D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv(73): near "endtask": syntax error, unexpected endtask.
+** Error: D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv(77): Illegal declaration after the statement near line '75'.  Declarations must precede statements.  Look for stray semicolons.
+** Error: D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv(79): (vlog-2730) Undefined variable: 'prescale_t'.
+** Error: (vlog-13069) D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv(90): near "endtask": syntax error, unexpected endtask.
+** Error: (vlog-13069) D:/ASU/Digital_IC_STUDY/Temsah/System/Specs_Documents/UART_RX/verilog Files/UART_RX_TB.sv(140): near "endmodule": syntax error, unexpected endmodule.
+
+} {3.0 8.0} {}}

@@ -1,0 +1,68 @@
+//`timescale 1ns/100ps
+module UART_RX_TB ();
+
+	typedef enum {IDLE,START,DATA,PARITY,STOP} e_states; 
+	
+	parameter clk_period=6; //ns //200 MHZ
+	logic clk,rst;
+	logic RX_IN;
+	logic [4:0] prescale;
+	logic PAR_EN,PAR_TYP;
+	logic data_valid;
+	logic [7:0] P_DATA;
+
+	int error_count=0;
+	int correct_count=0;
+
+	logic  [7:0] frame;
+
+	e_states cs;
+	assign cs=e_states'(u1.fsm.cs);
+
+	initial begin
+		clk=0;
+		forever
+		#(clk_period/2) clk=~clk; 
+	end
+
+	UART_RX u1(clk,rst,RX_IN,prescale,PAR_EN,PAR_TYP,data_valid,P_DATA);
+
+	task check_result();
+		
+	endtask
+
+	task assert_reset();
+		rst=0;
+		#(clk_period*prescale)
+		rst=1;
+	endtask
+
+	task send_frame (input [7:0] frame_t);
+		frame=frame_t;
+		#(clk_period*prescale) RX_IN=0;
+
+		for (int i = 0; i < 8; i++) begin
+			#(clk_period*prescale) RX_IN=frame[i];
+		end
+		#(clk_period*prescale)
+		RX_IN=^frame;
+		#(clk_period*prescale)
+		RX_IN=1;
+	endtask
+
+	initial begin
+		RX_IN=1; prescale=8; PAR_EN=1;PAR_TYP=0;
+		assert_reset();
+		@(negedge clk) rst=1;
+
+		send_frame(8'h8);
+		#(20*clk_period)
+		send_frame(8'h6);
+		repeat(10)
+		send_frame(8'h2);
+
+		$stop;
+	end
+
+
+endmodule

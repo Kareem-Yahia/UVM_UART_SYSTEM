@@ -1,0 +1,585 @@
+m255
+K4
+z2
+!s11f vlog 2021.1 2021.01, Jan 19 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/Kareem_PC/Desktop/gpr/5_dpi
+vaddRoundKey
+Z0 !s110 1769972689
+!i10b 1
+!s100 d`HRYFcN:zRiKZ4M[i@4g0
+IkJ7<=Eh^jK8?:>oX=TeSi0
+Z1 dD:/ASU/Digital_IC_STUDY/Sherif Hosney/Assignemnts/Advanced/Project/UVM_ADV_PROJECT/UVM_ADV_PROJECT/SIM
+Z2 w1769964158
+8../RTL/AES_Encryption/addRoundKey.v
+F../RTL/AES_Encryption/addRoundKey.v
+!i122 2
+L0 1 9
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+Z4 OL;L;2021.1;73
+r1
+!s85 0
+31
+Z5 !s108 1769972689.000000
+!s107 ../RTL/System_Wrapper.sv|../RTL/AES_Encryption/AES_Encrypt.v|../RTL/AES_Encryption/keyExpansion.v|../RTL/AES_Encryption/encryptRound.v|../RTL/AES_Encryption/mixColumns.v|../RTL/AES_Encryption/shiftRows.v|../RTL/AES_Encryption/sbox.v|../RTL/AES_Encryption/subBytes.v|../RTL/AES_Encryption/addRoundKey.v|../RTL/UART_TX/Verilog_Files/Parity_Calc.v|../RTL/UART_TX/Verilog_Files/Serializer.v|../RTL/UART_TX/Verilog_Files/Controller_TX.v|../RTL/UART_TX/Verilog_Files/UART_Mux.v|../RTL/UART_TX/Verilog_Files/UART_TX.v|../RTL/UART_RX/Verilog_Files/data_sampling.v|../RTL/UART_RX/Verilog_Files/deserializer.v|../RTL/UART_RX/Verilog_Files/edge__bit_counter.v|../RTL/UART_RX/Verilog_Files/parity_check.v|../RTL/UART_RX/Verilog_Files/FSM.v|../RTL/UART_RX/Verilog_Files/stop_check.v|../RTL/UART_RX/Verilog_Files/strt_check.v|../RTL/UART_RX/Verilog_Files/UART_RX.v|../RTL/Mux/Mux.sv|../RTL/Memory/Memory.sv|
+Z6 !s90 -reportprogress|300|-f|RTL_FILES.list|+cover|
+!i113 0
+Z7 !s102 +cover
+Z8 o+cover -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z9 tCvgOpt 0
+nadd@round@key
+vAES_Encrypt
+R0
+!i10b 1
+!s100 g;jj@azO@I1QJA[;4bfo80
+I81I3CeWNb=[F^;H3F]`B21
+R1
+R2
+8../RTL/AES_Encryption/AES_Encrypt.v
+F../RTL/AES_Encryption/AES_Encrypt.v
+!i122 2
+Z10 L0 1 29
+R3
+R4
+r1
+!s85 0
+31
+R5
+Z11 !s107 ../RTL/System_Wrapper.sv|../RTL/AES_Encryption/AES_Encrypt.v|../RTL/AES_Encryption/keyExpansion.v|../RTL/AES_Encryption/encryptRound.v|../RTL/AES_Encryption/mixColumns.v|../RTL/AES_Encryption/shiftRows.v|../RTL/AES_Encryption/sbox.v|../RTL/AES_Encryption/subBytes.v|../RTL/AES_Encryption/addRoundKey.v|../RTL/UART_TX/Verilog_Files/Parity_Calc.v|../RTL/UART_TX/Verilog_Files/Serializer.v|../RTL/UART_TX/Verilog_Files/Controller_TX.v|../RTL/UART_TX/Verilog_Files/UART_Mux.v|../RTL/UART_TX/Verilog_Files/UART_TX.v|../RTL/UART_RX/Verilog_Files/data_sampling.v|../RTL/UART_RX/Verilog_Files/deserializer.v|../RTL/UART_RX/Verilog_Files/edge__bit_counter.v|../RTL/UART_RX/Verilog_Files/parity_check.v|../RTL/UART_RX/Verilog_Files/FSM.v|../RTL/UART_RX/Verilog_Files/stop_check.v|../RTL/UART_RX/Verilog_Files/strt_check.v|../RTL/UART_RX/Verilog_Files/UART_RX.v|../RTL/Mux/Mux.sv|../RTL/Memory/Memory.sv|
+R6
+!i113 0
+R7
+R8
+R9
+n@a@e@s_@encrypt
+vController_TX
+R0
+!i10b 1
+!s100 AW:FK<WHP`bLlQ9@zY=]S0
+IVGE4:oJ_VG[jB9o;zMKcl2
+R1
+R2
+8../RTL/UART_TX/Verilog_Files/Controller_TX.v
+F../RTL/UART_TX/Verilog_Files/Controller_TX.v
+!i122 2
+L0 1 110
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@controller_@t@x
+vdata_sampling
+R0
+!i10b 1
+!s100 Z]Kk`Fa<h1Xg0Dm_?2:D<1
+IQGCcibh9GL7_^ndjaTK`b2
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/data_sampling.v
+F../RTL/UART_RX/Verilog_Files/data_sampling.v
+!i122 2
+L0 1 50
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vdeserializer
+R0
+!i10b 1
+!s100 1Qn=I[_I<4K^:=@_5jW2<1
+IZl^Oel[9W]@zD2L>7DaJ03
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/deserializer.v
+F../RTL/UART_RX/Verilog_Files/deserializer.v
+!i122 2
+L0 1 23
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vedge_bit_counter
+R0
+!i10b 1
+!s100 cd7`]2BWgjEDNGoB;`]Aj2
+I49bR]PA@a<8H1=YD]R8Qd1
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/edge__bit_counter.v
+F../RTL/UART_RX/Verilog_Files/edge__bit_counter.v
+!i122 2
+L0 1 88
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vencryptRound
+R0
+!i10b 1
+!s100 8jk:?gHFM4GD>i>_N3:B:2
+I7;;a57a]D7X6I9Vj@d_IT3
+R1
+R2
+8../RTL/AES_Encryption/encryptRound.v
+F../RTL/AES_Encryption/encryptRound.v
+!i122 2
+L0 1 15
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+nencrypt@round
+vFSM
+R0
+!i10b 1
+!s100 TV4=5nQ]R_l8Lo3:1ZOQ92
+IKJ8B>3>6FSnA8^[3=jUQ83
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/FSM.v
+F../RTL/UART_RX/Verilog_Files/FSM.v
+!i122 2
+L0 1 198
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@f@s@m
+vkeyExpansion
+R0
+!i10b 1
+!s100 0U82l`C3z_VJ;hO6PFQHi3
+I98nloNUVSJ8`5EaZdazMU3
+R1
+R2
+8../RTL/AES_Encryption/keyExpansion.v
+F../RTL/AES_Encryption/keyExpansion.v
+!i122 2
+L0 1 384
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+nkey@expansion
+vmemory
+Z12 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R0
+!i10b 1
+!s100 X10R5bK:K@Vm<3B8OE47E0
+In?ne]Pj=T^Y`ATAkg@nod0
+S1
+R1
+R2
+8../RTL/Memory/Memory.sv
+F../RTL/Memory/Memory.sv
+!i122 2
+L0 1 38
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vmixColumns
+R0
+!i10b 1
+!s100 c9R4h@afIgXMEFPR5UK?I2
+IKzjkbYm49_VPaiaJcZEO82
+R1
+R2
+8../RTL/AES_Encryption/mixColumns.v
+F../RTL/AES_Encryption/mixColumns.v
+!i122 2
+L0 1 48
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+nmix@columns
+vMux
+R12
+R0
+!i10b 1
+!s100 ]:o4==EGI_^5332RELz2g2
+Ii2dzO@KI_dG5MR9d5:NDG0
+S1
+R1
+R2
+8../RTL/Mux/Mux.sv
+F../RTL/Mux/Mux.sv
+!i122 2
+Z13 L0 1 18
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@mux
+vParity_Calc
+R0
+!i10b 1
+!s100 :SY[V3CaR]z1ho_egRl2h3
+IFg_DhW[@Fh_jENOU8nNm01
+R1
+R2
+8../RTL/UART_TX/Verilog_Files/Parity_Calc.v
+F../RTL/UART_TX/Verilog_Files/Parity_Calc.v
+!i122 2
+L0 1 27
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@parity_@calc
+vparity_check
+R0
+!i10b 1
+!s100 Sfk?V3G9:;9RLj239bN:h3
+I1mBHH6?8NP;]_4?6UFV[;2
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/parity_check.v
+F../RTL/UART_RX/Verilog_Files/parity_check.v
+!i122 2
+L0 1 26
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vsbox
+R0
+!i10b 1
+!s100 86<PXbJT:8<2WZFSGKY?T2
+IgPVP=]ikX=QWDIfQk^l>z0
+R1
+R2
+8../RTL/AES_Encryption/sbox.v
+F../RTL/AES_Encryption/sbox.v
+!i122 2
+L0 1 269
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vSerializer
+R0
+!i10b 1
+!s100 o@HYj[2XT3DZ]3dQa;1N22
+IoYU0JYgDBCo9IelnC;]``0
+R1
+R2
+8../RTL/UART_TX/Verilog_Files/Serializer.v
+F../RTL/UART_TX/Verilog_Files/Serializer.v
+!i122 2
+L0 1 44
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@serializer
+vshiftRows
+R0
+!i10b 1
+!s100 aDzzoM[<YMkM7:2<=nL7e2
+I_nYzo<kgYa>njG@LzYBb@1
+R1
+R2
+8../RTL/AES_Encryption/shiftRows.v
+F../RTL/AES_Encryption/shiftRows.v
+!i122 2
+R10
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+nshift@rows
+vstop_check
+R0
+!i10b 1
+!s100 O00NOcGDL`oPeFXm8l]P[1
+Ih4be<RUG<L7X^[Za;D[G43
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/stop_check.v
+F../RTL/UART_RX/Verilog_Files/stop_check.v
+!i122 2
+R13
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vstrt_check
+R0
+!i10b 1
+!s100 <]@NViCO3cZFC`MU:l3FH3
+I0akFM:FoB??lPG<8LLS<02
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/strt_check.v
+F../RTL/UART_RX/Verilog_Files/strt_check.v
+!i122 2
+R13
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+vsubBytes
+R0
+!i10b 1
+!s100 g>kY60mMJJ>I1VM8`6]691
+IAPL=3M1HzfRT0bO9>K3db0
+R1
+R2
+8../RTL/AES_Encryption/subBytes.v
+F../RTL/AES_Encryption/subBytes.v
+!i122 2
+L0 1 13
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+nsub@bytes
+vSystem_Wrapper
+R12
+R0
+!i10b 1
+!s100 1U1;z?JhZogenDnR9I_QB3
+IaLf]TX?h>clB]<Rb:^K=`1
+S1
+R1
+R2
+8../RTL/System_Wrapper.sv
+F../RTL/System_Wrapper.sv
+!i122 2
+L0 1 115
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@system_@wrapper
+vUART_Mux
+R0
+!i10b 1
+!s100 VB^7=FG2KONcU?=9dh26a3
+IlloG9a1Z>DnPMMTN`5zJ30
+R1
+R2
+8../RTL/UART_TX/Verilog_Files/UART_Mux.v
+F../RTL/UART_TX/Verilog_Files/UART_Mux.v
+!i122 2
+L0 1 20
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@u@a@r@t_@mux
+vUART_RX
+R0
+!i10b 1
+!s100 Ud_DOmJlJ`f80hm3;cMho0
+I@9o[^:DeAIb=E<^c<><Zk1
+R1
+R2
+8../RTL/UART_RX/Verilog_Files/UART_RX.v
+F../RTL/UART_RX/Verilog_Files/UART_RX.v
+!i122 2
+L0 1 66
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@u@a@r@t_@r@x
+vUART_TX
+R0
+!i10b 1
+!s100 6bXMDON[0`PX<Fzge;SCP1
+I=OM>7glFMI136jdj:N@RJ0
+R1
+R2
+8../RTL/UART_TX/Verilog_Files/UART_TX.v
+F../RTL/UART_TX/Verilog_Files/UART_TX.v
+!i122 2
+L0 1 32
+R3
+R4
+r1
+!s85 0
+31
+R5
+R11
+R6
+!i113 0
+R7
+R8
+R9
+n@u@a@r@t_@t@x

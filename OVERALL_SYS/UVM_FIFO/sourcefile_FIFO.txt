@@ -1,0 +1,10 @@
+./UVM_FIFO/FIFO_if.sv
+./UVM_FIFO/FIFO_seq_item.sv
+./UVM_FIFO/FIFO_config_obj.sv
+./UVM_FIFO/FIFO_monitor.sv
+./UVM_FIFO/FIFO_scoreboard.sv
+./UVM_FIFO/FIFO_cov.sv
+./UVM_FIFO/FIFO_agent.sv
+./UVM_FIFO/FIFO_env.sv
+
+

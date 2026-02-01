@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+require "run_test.pm";
+fail() if (run("rm -rf transcript  work"));
+fail() if (run("vsim -c -do run_sim.do"));
+

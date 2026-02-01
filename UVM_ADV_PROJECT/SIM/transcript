@@ -1,0 +1,61 @@
+# do run_sim.do
+# /home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT
+# QuestaSim-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 11:00:14 on Jan 23,2026
+# vlog -f RTL_FILES.list "+cover" 
+# ** Note: (vlog-220) '/u/release/questa/2025.2/questasim/linux_x86_64/../modelsim.ini' is used as the ini file.
+# -- Compiling module memory
+# -- Compiling module Mux
+# -- Compiling module UART_RX
+# -- Compiling module strt_check
+# -- Compiling module stop_check
+# -- Compiling module FSM
+# -- Compiling module parity_check
+# -- Compiling module edge_bit_counter
+# -- Compiling module deserializer
+# -- Compiling module data_sampling
+# -- Compiling module UART_TX
+# -- Compiling module UART_Mux
+# -- Compiling module Controller_TX
+# -- Compiling module Serializer
+# -- Compiling module Parity_Calc
+# -- Compiling module addRoundKey
+# -- Compiling module subBytes
+# -- Compiling module sbox
+# -- Compiling module shiftRows
+# -- Compiling module mixColumns
+# -- Compiling module encryptRound
+# -- Compiling module keyExpansion
+# -- Compiling module AES_Encrypt
+# -- Compiling module System_Wrapper
+# 
+# Top level modules:
+# 	System_Wrapper
+# End time: 11:00:14 on Jan 23,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 11:00:14 on Jan 23,2026
+# vlog /home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/GLOBAL_PACKAGES/global_pkg.sv 
+# ** Note: (vlog-220) '/u/release/questa/2025.2/questasim/linux_x86_64/../modelsim.ini' is used as the ini file.
+# -- Compiling package global_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 11:00:14 on Jan 23,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 11:00:14 on Jan 23,2026
+# vlog /home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/TOP/top_tb.sv "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/UVM_UART_TX" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/UVM_UART_RX" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/UVM_MEMORY" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/UVM_AES" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/TOP" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/INTERFACES" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/GLOBAL_PACKAGES" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/CONFIGURATIONS" "+incdir+/home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM" "+cover" 
+# ** Note: (vlog-220) '/u/release/questa/2025.2/questasim/linux_x86_64/../modelsim.ini' is used as the ini file.
+# -- Compiling module top_tb
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package global_pkg
+# ** Note: (vlog-2286) /home/karmohks/UVM_SHERIF_PROJECT/UVM_ADV_PROJECT/UVM/TOP/top_tb.sv(6): Using implicit +incdir+/u/release/questa/2025.2/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling interface sys_intf
+# -- Compiling module uart_sva
+# -- Compiling interface TX_if
+# 
+# Top level modules:
+# 	top_tb
+# End time: 11:00:15 on Jan 23,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

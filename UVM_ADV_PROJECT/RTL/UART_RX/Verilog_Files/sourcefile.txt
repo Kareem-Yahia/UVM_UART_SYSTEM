@@ -1,0 +1,11 @@
+pack1.sv
+data_sampling.v
+deserializer.v
+edge__bit_counter.v
+FSM.v
+parity_check.v
+stop_check.v
+strt_check.v
+UART_RX.v
+UART_RX_TB.sv
+

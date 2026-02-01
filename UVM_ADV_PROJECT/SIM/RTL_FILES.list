@@ -1,0 +1,33 @@
+# RTL files under this folder (relative paths)
+
+../RTL/Memory/Memory.sv
+../RTL/Mux/Mux.sv
+
+# UART RX Verilog files 
+../RTL/UART_RX/Verilog_Files/UART_RX.v
+../RTL/UART_RX/Verilog_Files/strt_check.v
+../RTL/UART_RX/Verilog_Files/stop_check.v
+../RTL/UART_RX/Verilog_Files/FSM.v
+../RTL/UART_RX/Verilog_Files/parity_check.v
+../RTL/UART_RX/Verilog_Files/edge__bit_counter.v
+../RTL/UART_RX/Verilog_Files/deserializer.v
+../RTL/UART_RX/Verilog_Files/data_sampling.v
+
+# UART TX Verilog files 
+
+../RTL/UART_TX/Verilog_Files/UART_TX.v
+../RTL/UART_TX/Verilog_Files/UART_Mux.v
+../RTL/UART_TX/Verilog_Files/Controller_TX.v
+../RTL/UART_TX/Verilog_Files/Serializer.v
+../RTL/UART_TX/Verilog_Files/Parity_Calc.v
+
+# AES encryption RTL 
+../RTL/AES_Encryption/addRoundKey.v
+../RTL/AES_Encryption/subBytes.v
+../RTL/AES_Encryption/sbox.v
+../RTL/AES_Encryption/shiftRows.v
+../RTL/AES_Encryption/mixColumns.v
+../RTL/AES_Encryption/encryptRound.v
+../RTL/AES_Encryption/keyExpansion.v
+../RTL/AES_Encryption/AES_Encrypt.v
+../RTL/System_Wrapper.sv
