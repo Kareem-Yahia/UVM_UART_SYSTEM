@@ -1,0 +1,35 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /top_tb
+=== Design Unit: work.top_tb
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       2         2         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/top_tb/sys_rst_sequence/body/immed__24
+                     D:/ASU/Digital_IC_STUDY/Sherif_Hosney/Assignemnts/Advanced/Project/UVM_ADV_PROJECT/UVM_ADV_PROJECT/UVM/UVM_SYS/sys_rst_sequence.sv(24)
+                                                        0          1
+/top_tb/sys_rst_sequence/body/immed__19
+                     D:/ASU/Digital_IC_STUDY/Sherif_Hosney/Assignemnts/Advanced/Project/UVM_ADV_PROJECT/UVM_ADV_PROJECT/UVM/UVM_SYS/sys_rst_sequence.sv(19)
+                                                        0          1
+
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/top_tb/sys_rst_sequence/body/immed__24
+                     D:/ASU/Digital_IC_STUDY/Sherif_Hosney/Assignemnts/Advanced/Project/UVM_ADV_PROJECT/UVM_ADV_PROJECT/UVM/UVM_SYS/sys_rst_sequence.sv(24)
+                                                        0          1
+/top_tb/sys_rst_sequence/body/immed__19
+                     D:/ASU/Digital_IC_STUDY/Sherif_Hosney/Assignemnts/Advanced/Project/UVM_ADV_PROJECT/UVM_ADV_PROJECT/UVM/UVM_SYS/sys_rst_sequence.sv(19)
+                                                        0          1
+
+Total Coverage By Instance (filtered view): 100.00%
+

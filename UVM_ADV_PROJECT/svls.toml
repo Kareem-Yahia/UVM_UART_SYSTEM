@@ -1,0 +1,8 @@
+[project]
+sources = [
+  "**/*.sv",
+  "**/*.svh"
+]
+
+[lint]
+enabled = false

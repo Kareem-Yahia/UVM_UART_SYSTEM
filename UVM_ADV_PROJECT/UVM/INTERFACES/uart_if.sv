@@ -1,4 +1,4 @@
-interface uart_if ();
+interface uart_if (UART_CLK , TX_CLK_TB);
   input UART_CLK;
   input TX_CLK_TB;
   

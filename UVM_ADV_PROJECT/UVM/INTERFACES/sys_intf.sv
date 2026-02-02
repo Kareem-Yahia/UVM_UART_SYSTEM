@@ -4,10 +4,10 @@ interface sys_intf #(
     localparam int ADDR_WIDTH = $clog2(MEM_DEPTH)
 ) (
     input logic clk,
-    input logic clk_faster,
-    input logic rst_n
+    input logic clk_faster
 );
 
+    logic                               rst_n;
     // Control / selects
     logic                               mux1_sel;
     logic                               mux2_sel;
@@ -77,6 +77,42 @@ interface sys_intf #(
         output mem1_valid_out,
         output mem2_valid_out
     );
+
+    clocking cb @(posedge clk) ;
+
+    default input #1step output #1step;
+
+
+    input uart_rx_data_valid,
+          uart_rx_P_DATA_reg,
+          uart_rx_par_err,
+          uart_rx_stp_error,
+          uart_tx_out,
+          uart_tx_busy,
+          mem1_data_out,
+          mem2_data_out,
+          mem1_valid_out,
+          mem2_valid_out ;
+
+    inout     
+               rst_n,
+               mux1_sel,
+               mux2_sel,
+               mem1_wr_en,
+               mem2_wr_en,
+               mem1_rd_en,
+               mem2_rd_en,
+               mem1_addr,
+               mem2_addr,
+               mem1_data_in,
+               mem2_data_in,
+               key,
+               parity_en,
+               parity_type,
+               RX_IN,
+               prescale;
+
+    endclocking
 
 
 endinterface : sys_intf

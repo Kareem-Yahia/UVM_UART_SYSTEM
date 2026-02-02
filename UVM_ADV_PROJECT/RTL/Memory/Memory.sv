@@ -4,7 +4,7 @@ module memory #(
     localparam ADDR_WIDTH = $clog2(MEM_DEPTH)
 ) (
     input       wire                                clk,
-    input       wire                                rst,
+    input       wire                                rst_n,
     input       wire                                write_En,
     input       wire                                read_En,
     input       wire        [ADDR_WIDTH-1:0]        Address,
@@ -15,8 +15,8 @@ module memory #(
 
 reg [DATA_WIDTH-1:0] MEM [0:MEM_DEPTH-1];
 
-always @(posedge clk, negedge rst) begin
-    if (!rst) begin
+always @(posedge clk, negedge rst_n) begin
+    if (!rst_n) begin
         Data_out <= 0;
         Valid_out <= 0;
     end

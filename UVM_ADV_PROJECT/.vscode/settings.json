@@ -1,0 +1,58 @@
+{
+    // =========================
+    // Formatting and Linting
+    // =========================
+    "verible.formatting.enable": true,
+    "verible.linting.enable": true,
+    "[systemverilog]": {
+        "editor.defaultFormatter": "chipsalliance.verible",
+        "editor.formatOnSave": false
+    },
+    "[verilog]": {
+        "editor.defaultFormatter": "chipsalliance.verible",
+        "editor.formatOnSave": false
+    },
+    "verilog.linting.linter": "verilator",
+    "verilog.linting.verilator.arguments": "-sv",
+
+    // =========================
+    // Disable old Verilog IntelliSense
+    // =========================
+    "verilog.intellisense.enable": false,
+    "verilog.ctags.enable": false,
+    "verilog.hover.definition": false,
+
+    // =========================
+    // File associations
+    // =========================
+    "files.associations": {
+        "*.sv": "systemverilog",
+        "*.svh": "systemverilog"
+    },
+
+    // =========================
+    // Optional: exclude folders from VS Code search/index
+    // =========================
+    "verilog.intellisense.excludeFiles": [
+        "**/work/**",
+        "**/.git/**"
+    ],
+
+    // =========================
+    // SVLS will automatically index all files under the workspace root
+    // Make sure you have svls.toml in your project root:
+    // [project]
+    // sources = [
+    //   "**/*.sv",
+    //   "**/*.svh"
+    // ]
+    // =========================
+
+    // =========================
+    // Misc VS Code editor settings (optional)
+    // =========================
+    "editor.fontSize": 15,
+    "editor.formatOnSave": false,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false
+}

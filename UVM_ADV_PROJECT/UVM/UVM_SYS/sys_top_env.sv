@@ -9,6 +9,7 @@ class sys_top_env extends uvm_env;
 
     sys_env sys_env_inst;
     sys_top_config sys_top_config_inst;
+    top_env_virtual_sequencer top_env_virtual_sequencer_inst ; 
 
     function new (string name = "sys_top_env", uvm_component parent = null);
         super.new(name, parent);
@@ -27,11 +28,13 @@ class sys_top_env extends uvm_env;
             sys_env_inst.sys_env_config = sys_top_config_inst.sys_env_config;
 
         end 
+        top_env_virtual_sequencer_inst =  top_env_virtual_sequencer::type_id::create("top_env_virtual_sequencer_inst", this);
 
     endfunction
 
     function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
+        top_env_virtual_sequencer_inst.sys_env_virtual_sequencer_inst = sys_env_inst.sys_env_virtual_sequencer_inst;
     endfunction
 
     task run_phase(uvm_phase phase);

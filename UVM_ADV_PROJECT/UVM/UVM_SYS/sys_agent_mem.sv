@@ -6,8 +6,8 @@ class sys_agent_mem extends uvm_agent ;
     sys_monitor_mem sys_monitor_mem_inst;
     sys_sequencer_mem sys_sequencer_mem_inst;
 
-    agent_config #(virtual sys_intf) agent_config_inst;
-    virtual sys_intf sys_if;
+    agent_config #(virtual sys_intf #(.DATA_WIDTH(DATA_WIDTH), .MEM_DEPTH(MEM_DEPTH))) agent_config_inst;
+    virtual sys_intf #(.DATA_WIDTH(DATA_WIDTH), .MEM_DEPTH(MEM_DEPTH)) sys_if;
     uvm_analysis_port #(sys_seq_item_mem) sys_agent_ap;
 
     function new (string name = "sys_agent_mem", uvm_component parent = null);
@@ -23,6 +23,8 @@ class sys_agent_mem extends uvm_agent ;
         end 
 
         sys_monitor_mem_inst   = sys_monitor_mem   :: type_id :: create("sys_monitor_mem_inst", this);
+        sys_agent_ap = new ("sys_agent_ap",this);
+
         sys_if = agent_config_inst.vif;
 
     endfunction

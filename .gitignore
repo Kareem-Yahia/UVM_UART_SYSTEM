@@ -1,0 +1,11 @@
+*.mpf*
+*.mti
+*.wlf
+*.log
+*.vstf
+*.rpt
+*reg*
+*.ucdb
+wlft*
+tcl_stacktrace.txt
+work

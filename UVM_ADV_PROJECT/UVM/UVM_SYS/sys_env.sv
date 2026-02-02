@@ -15,6 +15,7 @@ class sys_env extends uvm_env;
     sys_scoreboard_3 sys_scoreboard_3_inst;
     sys_scoreboard_4 sys_scoreboard_4_inst;
     sys_scoreboard_5 sys_scoreboard_5_inst;
+    sys_env_virtual_sequencer sys_env_virtual_sequencer_inst ;
 
 
     sys_env_config  sys_env_config;
@@ -46,6 +47,8 @@ class sys_env extends uvm_env;
         if (sys_env_config.has_scoreboard["sys_scoreboard_5"]) begin
             sys_scoreboard_5_inst = sys_scoreboard_5::type_id::create("sys_scoreboard_5_inst", this);
         end
+
+        sys_env_virtual_sequencer_inst = sys_env_virtual_sequencer::type_id::create("sys_env_virtual_sequencer_inst", this);
         
 
     endfunction
@@ -53,6 +56,7 @@ class sys_env extends uvm_env;
     function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
         sys_env_config.agent_config_inst = sys_agent_mem_inst.agent_config_inst;
+        sys_env_virtual_sequencer_inst.sys_sequencer_mem_inst = sys_agent_mem_inst.sys_sequencer_mem_inst;
     endfunction
 
   

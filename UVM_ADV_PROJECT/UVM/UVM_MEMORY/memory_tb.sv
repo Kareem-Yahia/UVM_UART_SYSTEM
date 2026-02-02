@@ -8,7 +8,7 @@ class my_sequence_item extends uvm_sequence_item;
 
   rand logic [31:0] Data_in;
   rand logic [3:0] Address;
-  rand logic write_En,read_En,rst;
+  rand logic write_En,read_En,rst_n;
   logic [31:0] Data_out;
 
   // constraint constr1{ unique {write_En,read_En};}
@@ -18,8 +18,8 @@ class my_sequence_item extends uvm_sequence_item;
   endfunction
 
   function void print ();
-    $display("time=%0t Data_in=%h Address=%h write_En=%b read_En=%b rst=%b Data_out=%h",
-      $time,Data_in,Address,write_En,read_En,rst,Data_out);
+    $display("time=%0t Data_in=%h Address=%h write_En=%b read_En=%b rst_n=%b Data_out=%h",
+      $time,Data_in,Address,write_En,read_En,rst_n,Data_out);
   endfunction
 
 endclass
@@ -43,55 +43,55 @@ class my_sequence extends uvm_sequence #(my_sequence_item);
 
   task body;
     logic [3:0] random_address;
-    //read after write with rst in between
+    //read after write with rst_n in between
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==0;Data_in==32'h00000;read_En!=write_En;});
+    assert (seq_item_inst.randomize() with {rst_n==0;Data_in==32'h00000;read_En!=write_En;});
     finish_item(seq_item_inst);
 
     for (int i = 0; i <40; i++) begin
       random_address=$random();
       start_item(seq_item_inst);
-      assert (seq_item_inst.randomize() with {rst==1;write_En==1; read_En==0; Address==random_address;});
+      assert (seq_item_inst.randomize() with {rst_n==1;write_En==1; read_En==0; Address==random_address;});
       finish_item(seq_item_inst);
 
       start_item(seq_item_inst);
-      assert (seq_item_inst.randomize() with {rst==1;write_En==0;read_En==1;Address==random_address;});
+      assert (seq_item_inst.randomize() with {rst_n==1;write_En==0;read_En==1;Address==random_address;});
       finish_item(seq_item_inst);
     end
 
     for (int i = 0; i < 16; i++) begin
       start_item(seq_item_inst);
-      assert (seq_item_inst.randomize() with {rst==1;write_En==1;read_En==0;Address==i;});
+      assert (seq_item_inst.randomize() with {rst_n==1;write_En==1;read_En==0;Address==i;});
       finish_item(seq_item_inst);
 
       start_item(seq_item_inst);
-      assert (seq_item_inst.randomize() with {rst==1;write_En==0;read_En==1;Address==i;});
+      assert (seq_item_inst.randomize() with {rst_n==1;write_En==0;read_En==1;Address==i;});
       finish_item(seq_item_inst);
     end
 
     //exhaustive testing {just to make sure code coverage reaches 100% for this simple design}
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==0;read_En==0;write_En==0;Data_in==32'h00000;});
+    assert (seq_item_inst.randomize() with {rst_n==0;read_En==0;write_En==0;Data_in==32'h00000;});
     finish_item(seq_item_inst);
 
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==0;read_En==0;write_En==1;Data_in==32'h111111;});
+    assert (seq_item_inst.randomize() with {rst_n==0;read_En==0;write_En==1;Data_in==32'h111111;});
     finish_item(seq_item_inst);
 
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==0;read_En==1;write_En==0;Data_in==32'h111111;});
+    assert (seq_item_inst.randomize() with {rst_n==0;read_En==1;write_En==0;Data_in==32'h111111;});
     finish_item(seq_item_inst);
 
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==0;write_En==1;read_En==1;Data_in==32'h00000;});
+    assert (seq_item_inst.randomize() with {rst_n==0;write_En==1;read_En==1;Data_in==32'h00000;});
     finish_item(seq_item_inst);
 
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==1;read_En==0;write_En==0;Data_in==32'h111111;});
+    assert (seq_item_inst.randomize() with {rst_n==1;read_En==0;write_En==0;Data_in==32'h111111;});
     finish_item(seq_item_inst);
 
     start_item(seq_item_inst);
-    assert (seq_item_inst.randomize() with {rst==1;read_En==1;write_En==1;Data_in==32'h111111;});
+    assert (seq_item_inst.randomize() with {rst_n==1;read_En==1;write_En==1;Data_in==32'h111111;});
     finish_item(seq_item_inst);
 
   endtask
@@ -132,7 +132,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
       driver_virtual.Address<=seq_item_inst.Address;
       driver_virtual.write_En<=seq_item_inst.write_En;
       driver_virtual.read_En<=seq_item_inst.read_En;
-      driver_virtual.rst<=seq_item_inst.rst;
+      driver_virtual.rst_n<=seq_item_inst.rst_n;
       #1step seq_item_port.item_done();
     end
 
@@ -180,7 +180,7 @@ class my_monitor extends uvm_monitor;
       seq_item_inst.Address<=monitor_virtual.Address;
       seq_item_inst.write_En<=monitor_virtual.write_En;
       seq_item_inst.read_En<=monitor_virtual.read_En;
-      seq_item_inst.rst<=monitor_virtual.rst;
+      seq_item_inst.rst_n<=monitor_virtual.rst_n;
       seq_item_inst.Data_out<=monitor_virtual.Data_out;
         #1step m_analysis_port.write(seq_item_inst); //hereeeeeeeeeeeeeeeeeeee
     end
@@ -306,7 +306,7 @@ class my_scoreboard extends uvm_scoreboard;
 
   task golden_model();
 
-    if(!seq_item_inst.rst)
+    if(!seq_item_inst.rst_n)
       Data_out_exp=0;
     else begin
       if(seq_item_inst.read_En)
@@ -321,15 +321,15 @@ class my_scoreboard extends uvm_scoreboard;
   task check_result();
 
     if(seq_item_inst.Data_out != Data_out_exp) begin
-      $display("ERROR:time=%0t rst=%b write_En=%b read_En=%b Data_in=%h  Address=%h ----> Data_out=%h but Data_out_exp=%h",$time,
-        seq_item_inst.rst,seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.Data_in,
+      $display("ERROR:time=%0t rst_n=%b write_En=%b read_En=%b Data_in=%h  Address=%h ----> Data_out=%h but Data_out_exp=%h",$time,
+        seq_item_inst.rst_n,seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.Data_in,
         seq_item_inst.Address,seq_item_inst.Data_out,Data_out_exp);
       error_count++;
     end
     else begin
       correct_count++;
-      $display("Done:time=%0t rst=%b write_En=%b read_En=%b Data_in=%h  Address=%h  ----> Data_out=%h == Data_out_exp=%h",$time,
-        seq_item_inst.rst,seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.Data_in,
+      $display("Done:time=%0t rst_n=%b write_En=%b read_En=%b Data_in=%h  Address=%h  ----> Data_out=%h == Data_out_exp=%h",$time,
+        seq_item_inst.rst_n,seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.Data_in,
         seq_item_inst.Address,seq_item_inst.Data_out,Data_out_exp);
     end
   endtask
@@ -362,13 +362,13 @@ class my_subscriber extends uvm_subscriber #(my_sequence_item);
     my_sequence_item seq_item_inst;
 
     covergroup cov_inst();
-      coverpoint seq_item_inst.rst {
+      coverpoint seq_item_inst.rst_n {
         bins bin_1 []={0,1};
         bins bin_2 =(0=>1); 
         bins bin_3 =(1=>0); 
       }
       coverpoint seq_item_inst.Address;
-      cross1 :cross seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.rst;
+      cross1 :cross seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.rst_n;
       
     endgroup
   
@@ -493,24 +493,3 @@ class my_test extends uvm_test;
         `uvm_info(get_type_name(),$sformatf("Finish: error_count=%0d correct_count=%0d",error_count,correct_count),UVM_LOW);
     endfunction
 endclass
-
-
-
-//interface
-/////////////////////////////////
-interface intf(input logic clk);
-  
-  parameter  DATA_WIDTH = 32 ;
-  parameter  MEM_DEPTH  = 64 ;
-  localparam ADDR_WIDTH = $clog2(MEM_DEPTH) ;
-
-  logic rst;
-  logic write_En;
-  logic read_En;
-  logic [ADDR_WIDTH-1:0] Address;
-  logic [DATA_WIDTH-1:0] Data_in;
-  logic [DATA_WIDTH-1:0] Data_out;
-  logic Valid_out;
-
-
-endinterface

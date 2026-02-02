@@ -55,23 +55,23 @@ AES_Encrypt aes_encrypt_inst (
 memory #(.DATA_WIDTH(DATA_WIDTH),.MEM_DEPTH(MEM_DEPTH)) memory1_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .write_en(mem1_wr_en),
-    .read_en(mem1_rd_en),
-    .address(mem1_addr),
-    .data_in(mux1_out),
-    .data_out(mem1_data_out),
-    .valid_out(mem1_valid_out)
+    .write_En(mem1_wr_en),
+    .read_En(mem1_rd_en),
+    .Address(mem1_addr),
+    .Data_in(mux1_out),
+    .Data_out(mem1_data_out),
+    .Valid_out(mem1_valid_out)
 );
 
 memory #(.DATA_WIDTH(DATA_WIDTH),.MEM_DEPTH(MEM_DEPTH)) memory2_inst (
     .clk(clk),
     .rst_n(rst_n),
-    .write_en(mem2_wr_en),
-    .read_en(mem2_rd_en),
-    .address(mem2_addr),
-    .data_in(mem2_data_in),
-    .data_out(mem2_data_out),
-    .valid_out(mem2_valid_out)
+    .write_En(mem2_wr_en),
+    .read_En(mem2_rd_en),
+    .Address(mem2_addr),
+    .Data_in(mem2_data_in),
+    .Data_out(mem2_data_out),
+    .Valid_out(mem2_valid_out)
 );
 
 Mux #(.DATA_WIDTH(DATA_WIDTH)) mux1_inst (
@@ -100,7 +100,7 @@ UART_TX UART_TX_inst (
 );
 
 UART_RX uart_rx_inst (
-    .clk            (clk),
+    .clk            (clk_faster),
     .rst            (rst_n),
     .RX_IN          (RX_IN),
     .prescale       (prescale),

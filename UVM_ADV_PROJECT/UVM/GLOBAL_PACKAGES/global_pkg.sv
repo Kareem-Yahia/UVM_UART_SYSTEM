@@ -3,7 +3,7 @@ package global_pkg;
   // Global parameters
     parameter int CLK_PERIOD = 20;
  // Parameters matching System_Wrapper defaults
-    localparam int DATA_WIDTH = 32;
+    localparam int DATA_WIDTH = 8;
     localparam int MEM_DEPTH  = 64;
     localparam int ADDR_WIDTH = $clog2(MEM_DEPTH);
 

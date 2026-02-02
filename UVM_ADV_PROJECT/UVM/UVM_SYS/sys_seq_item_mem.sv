@@ -45,7 +45,7 @@ class sys_seq_item_mem extends uvm_sequence_item;
 
     `uvm_object_utils_begin(sys_seq_item_mem)
          // Control / selects
-        `uvm_field_int(rst_n , UVM_DEFAULT)
+        //`uvm_field_int(rst_n , UVM_DEFAULT)
         `uvm_field_int(mux1_sel , UVM_DEFAULT)
         `uvm_field_int(mux2_sel , UVM_DEFAULT)
         `uvm_field_int(mem1_wr_en , UVM_DEFAULT)
@@ -94,6 +94,17 @@ class sys_seq_item_mem extends uvm_sequence_item;
             mem1_data_out, mem1_valid_out,
             mem2_data_out, mem2_valid_out);
     endfunction 
+
+
+    virtual function void do_print (uvm_printer printer);
+      super.do_print(printer);
+       printer.knobs.type_name = 0;               // Do not show Type column
+       printer.knobs.indent = 4;                  // Indent from the left by 4
+
+      printer.print_int ("rst_n", rst_n, $bits(rst_n));
+      //`uvm_info ("MEM_EQ_ITEM", $sformatf("rst_n = %b",rst_n), UVM_MEDIUM)
+      `uvm_info ("DVR", "do_print called", UVM_MEDIUM)
+    endfunction
 
     constraint addr_range_c { 
         mem1_addr < MEM_DEPTH;

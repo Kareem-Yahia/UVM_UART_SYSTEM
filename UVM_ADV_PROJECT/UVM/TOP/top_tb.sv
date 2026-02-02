@@ -19,14 +19,14 @@ module top_tb;
     end 
 
     // Instantiating the interfaces
-    sys_intf #( .DATA_WIDTH(DATA_WIDTH), .MEM_DEPTH(MEM_DEPTH) ) sys_if (.clk(clk), .clk_faster(clk_faster), .rst_n(rst_n) );
+    sys_intf #( .DATA_WIDTH(DATA_WIDTH), .MEM_DEPTH(MEM_DEPTH) ) sys_if (.clk(clk), .clk_faster(clk_faster) );
     
-    intf mem_if();
-    intf mem_if2();
+    intf mem_if(.clk(clk));
+    intf mem_if2(.clk(clk));
 
-    TX_if tx_if (); 
+    TX_if tx_if (.TX_CLK_TB(clk)); 
 
-    uart_if rx_if ();
+    uart_if rx_if (.TX_CLK_TB(clk) ,.UART_CLK(clk_faster));
 
     AES_if #(.N(N), .Nr(Nr), .Nk(Nk)) aes_if();
    
@@ -43,7 +43,7 @@ module top_tb;
     assign rx_if.PAR_EN   = dut_inst.uart_rx_inst.PAR_EN;
     assign rx_if.PAR_TYP  = dut_inst.uart_rx_inst.PAR_TYP;
     assign rx_if.rst      = dut_inst.uart_rx_inst.rst;
-    assign rx_if.clk      = dut_inst.uart_rx_inst.clk;
+    assign rx_if.UART_CLK = dut_inst.uart_rx_inst.clk;
 
     // Hook up UART TX monitor (observe DUT TX outputs from instance)
     assign tx_if.TX_OUT    = dut_inst.UART_TX_inst.TX_OUT;
@@ -53,7 +53,6 @@ module top_tb;
     assign tx_if.P_DATA    = dut_inst.UART_TX_inst.P_DATA;
     assign tx_if.Data_Valid= dut_inst.UART_TX_inst.Data_Valid;
     assign tx_if.rst       = dut_inst.UART_TX_inst.rst;
-    assign tx_if.clk       = dut_inst.UART_TX_inst.clk;
 
     // AES interface: reflect DUT key and data from instance
     assign aes_if.key = dut_inst.aes_encrypt_inst.key;
@@ -66,8 +65,7 @@ module top_tb;
     assign mem_if.Address   = dut_inst.memory1_inst.Address;
     assign mem_if.write_En  = dut_inst.memory1_inst.write_En;
     assign mem_if.read_En   = dut_inst.memory1_inst.read_En;
-    assign mem_if.clk       = dut_inst.memory1_inst.clk;
-    assign mem_if.rst       = dut_inst.memory1_inst.rst;
+    assign mem_if.rst_n       = dut_inst.memory1_inst.rst_n;
     assign mem_if.Data_out  = dut_inst.memory1_inst.Data_out;
     assign mem_if.Valid_out = dut_inst.memory1_inst.Valid_out;
 
@@ -77,8 +75,7 @@ module top_tb;
     assign mem_if2.Address   = dut_inst.memory2_inst.Address;
     assign mem_if2.write_En  = dut_inst.memory2_inst.write_En;
     assign mem_if2.read_En   = dut_inst.memory2_inst.read_En;
-    assign mem_if2.clk       = dut_inst.memory2_inst.clk;
-    assign mem_if2.rst       = dut_inst.memory2_inst.rst_n;
+    assign mem_if2.rst_n       = dut_inst.memory2_inst.rst_n;
     assign mem_if2.Data_out  = dut_inst.memory2_inst.Data_out;
     assign mem_if2.Valid_out = dut_inst.memory2_inst.Valid_out;
 
@@ -111,17 +108,22 @@ module top_tb;
     .uart_rx_par_err       (sys_if.uart_rx_par_err),
     .uart_rx_stp_error     (sys_if.uart_rx_stp_error),
     .uart_tx_out           (sys_if.uart_tx_out),
-    .uart_tx_busy          (sys_if.uart_tx_busy)
+    .uart_tx_busy          (sys_if.uart_tx_busy),
+        // Memory output monitoring
+    .mem1_data_out         (sys_if.mem1_data_out),
+    .mem2_data_out         (sys_if.mem2_data_out),
+    .mem1_valid_out        (sys_if.mem1_valid_out),
+    .mem2_valid_out        (sys_if.mem2_valid_out)
     );
   
   initial begin
     
-    uvm_config_db#(virtual sys_intf)::set(null, "uvm_test_top", "sys_if", sys_if);
+    uvm_config_db#(virtual sys_intf #(.DATA_WIDTH(DATA_WIDTH), .MEM_DEPTH(MEM_DEPTH)))::set(null, "uvm_test_top", "sys_if", sys_if);
     uvm_config_db#(virtual intf)::set(null, "uvm_test_top", "mem_if", mem_if);
     uvm_config_db#(virtual intf)::set(null, "uvm_test_top", "mem_if2", mem_if2);
     uvm_config_db#(virtual TX_if)::set(null, "uvm_test_top", "tx_if", tx_if);
     uvm_config_db#(virtual uart_if)::set(null, "uvm_test_top", "rx_if", rx_if);
-    uvm_config_db#(virtual AES_if)::set(null, "uvm_test_top", "aes_if", aes_if);
+    uvm_config_db#(virtual AES_if #(.N(N), .Nr(Nr), .Nk(Nk)))::set(null, "uvm_test_top", "aes_if", aes_if);
 
     run_test("smoke_test");
   end
