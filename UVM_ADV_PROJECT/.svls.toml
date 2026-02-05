@@ -1,0 +1,28 @@
+[project]
+sources = [
+  "**/*.sv",
+  "**/*.svh"
+]
+include_dirs = [
+  "UVM",
+  "RTL",
+  "SIM",
+  "RTL/AES_Encryption",
+  "RTL/Memory",
+  "RTL/Mux",
+  "RTL/UART_RX/Verilog_Files",
+  "RTL/UART_TX/Verilog_Files",
+  "UVM/CONFIGURATIONS",
+  "UVM/GLOBAL_PACKAGES",
+  "UVM/INTERFACES",
+  "UVM/TOP",
+  "UVM/UVM_AES",
+  "UVM/UVM_MEMORY",
+  "UVM/UVM_SYS",
+  "UVM/UVM_UART_RX",
+  "UVM/UVM_UART_TX"
+]
+defines = []
+
+[option]
+linter = true

@@ -8,7 +8,7 @@
 `include "CONFIGURATIONS/sys_top_config.sv"
 
 // Interfaces
-//`include "INTERFACES/sys_intf.sv"
+// `include "INTERFACES/sys_intf.sv"
 
 // UVM System (memory) - sequence items first
 `include "UVM_SYS/sys_seq_item_mem.sv"

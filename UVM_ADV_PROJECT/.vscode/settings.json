@@ -6,7 +6,7 @@
     "verible.linting.enable": true,
     "[systemverilog]": {
         "editor.defaultFormatter": "chipsalliance.verible",
-        "editor.formatOnSave": false
+        "editor.formatOnSave": false 
     },
     "[verilog]": {
         "editor.defaultFormatter": "chipsalliance.verible",
@@ -54,5 +54,12 @@
     "editor.fontSize": 15,
     "editor.formatOnSave": false,
     "editor.tabSize": 4,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false ,
+    "svls.includeIndexing": ["**/*.sv", "**/*.svh"],
+    "svls.launchConfiguration": ".svls.toml",
+    "svls.useBuiltinParser": true ,
+    "verilog.ctags.enabled": true,
+    "ctags-companion.command": "ctags -R --fields=+nKz --langmap=SystemVerilog:+.v -R rtl /opt/uvm-1.2/src" 
+
 }
+

@@ -1,9 +1,0 @@
-./UVM_SYNC/SYNC_if.sv
-./UVM_SYNC/SYNC_seq_item.sv
-./UVM_SYNC/SYNC_config_obj.sv
-./UVM_SYNC/SYNC_cov.sv
-./UVM_SYNC/SYNC_monitor.sv
-./UVM_SYNC/SYNC_scoreboard.sv
-./UVM_SYNC/SYNC_agent.sv
-./UVM_SYNC/SYNC_env.sv
-./UVM_SYNC/DATA_SYNC_sva.sv

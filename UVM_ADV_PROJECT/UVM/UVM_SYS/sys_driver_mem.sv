@@ -58,12 +58,9 @@ task sys_driver_mem::sys_driver_stimulus();
         sys_if.cb.RX_IN            <= seq_item_inst.RX_IN;
         sys_if.cb.prescale         <= seq_item_inst.prescale;
 
-        seq_item_inst.print(tprinter);
 
-        
-        
+        seq_item_inst.print(tprinter);
 
         seq_item_port.item_done();
     end
 endtask
-

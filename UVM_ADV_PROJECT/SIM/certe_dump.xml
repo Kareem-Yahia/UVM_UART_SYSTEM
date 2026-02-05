@@ -1,0 +1,116 @@
+<certe_dump>
+  <instance type=" sys_smoke_test "> 
+     uvm_test_top 
+  
+     <instance type=" sys_top_env "> 
+        sys_top_env_inst 
+  
+        <instance type=" sys_env "> 
+           sys_env_inst 
+  
+           <instance type=" sys_agent_mem "> 
+              sys_agent_mem_inst 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 sys_agent_ap 
+              </port> 
+  
+              <instance type=" sys_driver_mem "> 
+                 sys_driver_mem_inst 
+  
+                 <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                    rsp_port 
+                 </port> 
+  
+                 <port if_type = "uvm_seq_item_pull_port" txn_type = "anonymous"> 
+                    seq_item_port 
+                    <connection>  uvm_test_top.sys_top_env_inst.sys_env_inst.sys_agent_mem_inst.sys_sequencer_mem_inst.seq_item_export  </connection> 
+                 </port> 
+              </instance> 
+  
+  
+              <instance type=" sys_monitor_mem "> 
+                 sys_monitor_mem_inst 
+  
+                 <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                    sys_monitor_ap 
+                    <connection>  uvm_test_top.sys_top_env_inst.sys_env_inst.sys_agent_mem_inst.sys_agent_ap  </connection> 
+                 </port> 
+              </instance> 
+  
+  
+              <instance type=" sys_sequencer_mem "> 
+                 sys_sequencer_mem_inst 
+  
+                 <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+                    rsp_export 
+                    <connection>  uvm_test_top.sys_top_env_inst.sys_env_inst.sys_agent_mem_inst.sys_sequencer_mem_inst.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+                 </export> 
+  
+                 <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+                    seq_item_export 
+                 </imp> 
+              </instance> 
+  
+           </instance> 
+  
+  
+           <instance type=" sys_env_virtual_sequencer "> 
+              sys_env_virtual_sequencer_inst 
+  
+              <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+                 rsp_export 
+                 <connection>  uvm_test_top.sys_top_env_inst.sys_env_inst.sys_env_virtual_sequencer_inst.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+              </export> 
+  
+              <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+                 seq_item_export 
+              </imp> 
+           </instance> 
+  
+  
+           <instance type=" sys_scoreboard_1 "> 
+              sys_scoreboard_1_inst 
+           </instance> 
+  
+  
+           <instance type=" sys_scoreboard_2 "> 
+              sys_scoreboard_2_inst 
+           </instance> 
+  
+  
+           <instance type=" sys_scoreboard_3 "> 
+              sys_scoreboard_3_inst 
+           </instance> 
+  
+  
+           <instance type=" sys_scoreboard_4 "> 
+              sys_scoreboard_4_inst 
+           </instance> 
+  
+  
+           <instance type=" sys_scoreboard_5 "> 
+              sys_scoreboard_5_inst 
+           </instance> 
+  
+        </instance> 
+  
+  
+        <instance type=" top_env_virtual_sequencer "> 
+           top_env_virtual_sequencer_inst 
+  
+           <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+              rsp_export 
+              <connection>  uvm_test_top.sys_top_env_inst.top_env_virtual_sequencer_inst.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+           </export> 
+  
+           <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+              seq_item_export 
+           </imp> 
+        </instance> 
+  
+     </instance> 
+  
+  </instance> 
+  
+  </certe_dump>
