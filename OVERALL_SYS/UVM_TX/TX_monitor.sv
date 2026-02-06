@@ -26,7 +26,7 @@ package TX_monitor_pkg;
 				my_seq_item=TX_seq_item::type_id::create("my_seq_item",this);
 				
 				mon1();
-				if (TXvif_monitor.Data_Valid && TXvif_monitor.rst)
+
 				mon_ap.write(my_seq_item);
 
 				`uvm_info("run_phase",my_seq_item.convert2string(),UVM_HIGH)
@@ -36,17 +36,19 @@ package TX_monitor_pkg;
 		task mon1();
 			@(TXvif_monitor.cb_TX_CLK);
 
-			my_seq_item.P_DATA=TXvif_monitor.cb_TX_CLK_TB.P_DATA;
-			my_seq_item.Data_Valid=TXvif_monitor.cb_TX_CLK_TB.Data_Valid;
-			my_seq_item.PAR_TYP=TXvif_monitor.cb_TX_CLK_TB.PAR_TYP;
+			my_seq_item.rst 			=TXvif_monitor.cb_TX_CLK.rst;
+			my_seq_item.PAR_TYP 		=TXvif_monitor.cb_TX_CLK.PAR_TYP;
+			my_seq_item.PAR_EN 			=TXvif_monitor.cb_TX_CLK.PAR_EN;
+			my_seq_item.P_DATA 			=TXvif_monitor.cb_TX_CLK.P_DATA;
+			my_seq_item.Data_Valid 		=TXvif_monitor.cb_TX_CLK.Data_Valid;
+			my_seq_item.Par_bit 		=TXvif_monitor.cb_TX_CLK.Par_bit;
 
-			my_seq_item.PAR_EN=TXvif_monitor.cb_TX_CLK_TB.PAR_EN;
-			my_seq_item.TX_OUT=TXvif_monitor.cb_TX_CLK_TB.TX_OUT;
+			my_seq_item.busy 			= TXvif_monitor.cb_TX_CLK.busy ;
+			my_seq_item.TX_OUT 			=TXvif_monitor.cb_TX_CLK.TX_OUT;
 
-			my_seq_item.rst=TXvif_monitor.cb_TX_CLK_TB.rst;
-			my_seq_item.Par_bit=TXvif_monitor.cb_TX_CLK_TB.Par_bit;
-            
             ///////////////////////////////////////////////
 		endtask
+
 	endclass
+
 endpackage

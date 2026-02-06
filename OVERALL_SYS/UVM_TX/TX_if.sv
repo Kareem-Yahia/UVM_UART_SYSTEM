@@ -19,7 +19,7 @@ interface TX_if (TX_CLK_TB);
    clocking cb_TX_CLK_TB @(posedge TX_CLK_TB);
       default input #1step output #1step;
 
-      input  PAR_TYP ,PAR_EN ,TX_OUT , busy ;
+      input  PAR_TYP ,PAR_EN ,TX_OUT , busy , Par_bit  ;
 
       inout   P_DATA ,Data_Valid , rst ;
 

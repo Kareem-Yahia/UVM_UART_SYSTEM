@@ -31,7 +31,7 @@ package TX_seq_item_pkg;
 
 		  s = { s1, s2, s3,
 		        $sformatf(
-		          "|  %1b  |   0x%02h    |     %1b      |    %1b     |    %1b    |  0x%02h |  %1b   |\n",
+		          "|  %1b  |   0x%02h    |     %1b      |    %1b     |    %1b    |  %1b  |  %1b   |\n",
 		          rst,
 		          P_DATA,
 		          Data_Valid,

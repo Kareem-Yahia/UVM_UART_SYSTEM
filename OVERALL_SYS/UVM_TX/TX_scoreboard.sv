@@ -48,7 +48,7 @@ package TX_scoreboard_pkg;
 			
 			task check_data_sent_from_TX(TX_seq_item seq_item_sb_t);
 
-				if(seq_item_sb_t.Data_Valid === 1'b1  && seq_item_sb_t.rst !==0 && flag === 1'b0 ) begin
+				if(seq_item_sb_t.Data_Valid === 1'b1 && seq_item_sb.TX_OUT === 1'b0 && seq_item_sb_t.rst !==0 && flag === 1'b0 ) begin
 					flag=1;
 					p_data_reserved  = seq_item_sb_t.P_DATA ;
 
