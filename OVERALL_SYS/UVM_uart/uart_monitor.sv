@@ -11,6 +11,7 @@ package uart_monitor_pkg;
 			uart_seq_item my_seq_item;
 			uvm_analysis_port #(uart_seq_item) mon_ap;
 
+
 			function new(string name="uart_monitor" , uvm_component parent=null);
 				super.new(name,parent);
 			endfunction
@@ -28,25 +29,27 @@ package uart_monitor_pkg;
 				mon1();
 				mon_ap.write(my_seq_item);
 
-				`uvm_info("run_phase",my_seq_item.convert2string(),UVM_HIGH)
+				`uvm_info("Monitor [UART_RX]",my_seq_item.convert2string(),UVM_HIGH)
 			end
 		endtask
 
 		task mon1();
-			  @(negedge uartvif_monitor.TX_CLK_TB);
-			 my_seq_item.rst=uartvif_monitor.rst;
-			 my_seq_item.RX_IN=uartvif_monitor.RX_IN;
-			 my_seq_item.prescale=uartvif_monitor.prescale;
-			 my_seq_item.PAR_EN=uartvif_monitor.PAR_EN;
-			 my_seq_item.PAR_TYP=uartvif_monitor.PAR_TYP;
+			@(uartvif_monitor.cb_TX_CLK_TB);
+			 my_seq_item.rst 			=uartvif_monitor.cb_TX_CLK_TB.rst;
+			 my_seq_item.RX_IN			=uartvif_monitor.cb_TX_CLK_TB.RX_IN;
+			 my_seq_item.prescale		=uartvif_monitor.cb_TX_CLK_TB.prescale;
+			 my_seq_item.PAR_EN 		=uartvif_monitor.cb_TX_CLK_TB.PAR_EN;
+			 my_seq_item.PAR_TYP 		=uartvif_monitor.cb_TX_CLK_TB.PAR_TYP;
 
             //just for testing 
-            my_seq_item.data_valid_reg=uartvif_monitor.data_valid_reg;
-            my_seq_item.P_DATA_reg=uartvif_monitor.P_DATA_reg;
-            my_seq_item.par_err_reg=uartvif_monitor.par_err_reg;
-            my_seq_item.stp_error_reg=uartvif_monitor.stp_error_reg;
+            my_seq_item.data_valid_reg 	=uartvif_monitor.cb_TX_CLK_TB.data_valid_reg;
+            my_seq_item.P_DATA_reg 		=uartvif_monitor.cb_TX_CLK_TB.P_DATA_reg;
+            my_seq_item.par_err_reg 	=uartvif_monitor.cb_TX_CLK_TB.par_err_reg;
+            my_seq_item.stp_error_reg 	=uartvif_monitor.cb_TX_CLK_TB.stp_error_reg;
 
             ///////////////////////////////////////////////
 		endtask
+
+
 	endclass
 endpackage

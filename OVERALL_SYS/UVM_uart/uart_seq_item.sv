@@ -8,7 +8,7 @@ package uart_seq_item_pkg;
 
 		//inputs 
 		rand logic  rst;
-	   rand logic  RX_IN;
+	    rand logic  RX_IN;
 	    logic  [5:0] prescale;
 	    logic  PAR_EN,PAR_TYP;
 
@@ -25,9 +25,31 @@ package uart_seq_item_pkg;
 	endfunction 
 
 		function string convert2string();
-			return $sformatf("%s rst=%b, prescale=%b PAR_EN=%b  PAR_TYP=%b RX_IN=%b  data_valid=%b --> P_DATA=%h par_err=%b stp_error=%b"
-				,super.convert2string(),rst,prescale,PAR_EN,PAR_TYP,RX_IN,data_valid_reg,P_DATA_reg,par_err_reg,stp_error_reg);
+		  string s,s1,s2,s3;
+
+		    s1 = "\n--------------------------------------------------------------------------------\n";
+		    s2 = "| rst | prescale | PAR_EN | PAR_TYP | RX_IN || data_valid | P_DATA | par | stp |\n";
+		    s3 = "--------------------------------------------------------------------------------\n";
+
+		  s = { s1,s2,s3,
+		        $sformatf(
+		          "|  %1b  |    %02d    |    %1b    |    %1b     |   %1b   ||      %1b      | 0x%02h  |  %1b  |  %1b  |\n",
+		          rst,
+		          prescale,
+		          PAR_EN,
+		          PAR_TYP,
+		          RX_IN,
+		          data_valid_reg,
+		          P_DATA_reg,
+		          par_err_reg,
+		          stp_error_reg
+		        )
+		      };
+
+		  return s;
 		endfunction
+
+
 		
 		function string convert2string_stimulus ();
 			return $sformatf("%s rst=%b, prescale=%b PAR_EN=%b  PAR_TYP=%b RX_IN=%b "

@@ -30,18 +30,20 @@ package sys_driver_pkg;
       endtask
 
       virtual task drive1();
-            //here we drive inputs
+            @(sysvif_driver.cb);
+            // Inputs
 
-            sysvif_driver.RST=stim_seq_item.RST;
-            sysvif_driver.RX_IN=stim_seq_item.RX_IN;
-            //output 
-            stim_seq_item.par_err_reg=sysvif_driver.par_err_reg;
-            stim_seq_item.stp_error_reg=sysvif_driver.stp_error_reg;
-            stim_seq_item.TX_OUT=sysvif_driver.TX_OUT;
+            sysvif_driver.cb.RST           <=stim_seq_item.RST;
+            sysvif_driver.cb.RX_IN         <=stim_seq_item.RX_IN;
+
+            // Outputs
+
+            stim_seq_item.par_err_reg      <=sysvif_driver.cb.par_err_reg;
+            stim_seq_item.stp_error_reg   <=sysvif_driver.cb.stp_error_reg;
+            stim_seq_item.TX_OUT          <=sysvif_driver.cb.TX_OUT;
 
             
             ///////////////////////////////////////////////
-            @(negedge sysvif_driver.TX_CLK_TB);
 
       endtask
 

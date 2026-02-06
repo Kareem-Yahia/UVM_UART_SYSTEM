@@ -1,4 +1,4 @@
-`timescale 1ns/10ps
+`timescale 1ns/1ps
 
 import sys_test_pkg::*;
 import uvm_pkg::*;

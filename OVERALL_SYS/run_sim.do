@@ -1,9 +1,9 @@
 vlib work
 vlog -f ./RTL/source_file_rtl.txt -f ./UVM_uart/sourcefile_uart.txt -f ./UVM_TX/sourcefile_TX.txt -f ./UVM_SYNC/sourcefile_SYNC.txt \
--f ./UVM_FIFO/sourcefile_FIFO.txt -f ./UVM_REG_FILE/sourcefile_REG_FILE.txt -f ./UVM_TOP/sourcefile_TOP.txt  +cover \
+-f ./UVM_FIFO/sourcefile_FIFO.txt -f ./UVM_REG_FILE/sourcefile_REG_FILE.txt -f ./UVM_TOP/sourcefile_TOP.txt global_pkg.sv  +cover \
  +define+UART_RX_assertion+DATA_SYNC_sva 
 
-vsim -voptargs=+acc work.top +UVM_TESTNAME=sys_test1 -cover -classdebug -sv_seed 25
+vsim -voptargs=+acc work.top +UVM_TESTNAME=sys_smoke_test -cover -classdebug -sv_seed 25 -l transcript.log
 
 #run 0
 

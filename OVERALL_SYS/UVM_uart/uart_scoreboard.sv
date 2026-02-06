@@ -2,6 +2,8 @@ package uart_scoreboard_pkg;
 
 	import uart_seq_item_pkg::*;
 	import uvm_pkg::*;
+	import global_pkg::*;
+	
 	`include "uvm_macros.svh"
 
 	class uart_scoreboard extends uvm_scoreboard;
@@ -13,11 +15,16 @@ package uart_scoreboard_pkg;
 		
 		int error_count=0;
 		int correct_count=0;
-		static int flag=0;
-		static int counter=0;
-		logic [7:0] frame;
 
+		// Golden Model Logic
 
+		int flag=0;
+		int counter=0;
+		logic [10:0] Frame_Collected = 0;
+		int end_count = 0 ;
+		int stop_location = 10 ;
+		int parity_enable_reserved = PAR_ENABLE;
+		int parity_type_reserved =EVEN ;
 
 			function new(string name="uart_scoreboard" , uvm_component parent=null);
 				super.new(name,parent);
@@ -36,46 +43,118 @@ package uart_scoreboard_pkg;
 			endfunction
 
 
-			task check_result_RX_hex(input [7:0] check_frame);
-				if(seq_item_sb.P_DATA_reg !=check_frame ) begin
-					`uvm_error(get_type_name(),$sformatf("RX_ERROR:Time=%0t P_DATA_reg=%h but---> Expected=%h\n",$time,seq_item_sb.P_DATA_reg,check_frame))
+			task check_result_RX_hex(input [10:0] check_frame , uart_seq_item seq_item_sb_t , int parity_enable_reserved , int parity_type_reserved);
+				
+				// Data Check
+
+				if(seq_item_sb_t.P_DATA_reg != check_frame[8:1] ) begin
+					`uvm_error("Scoreboard - UART_RX",$sformatf("RX_ERROR:Time=%0t P_DATA_reg=%h but---> Expected=%h\n",$time,seq_item_sb_t.P_DATA_reg,check_frame[8:1]))
 					error_count++;
 				end
 				else begin
-					`uvm_info(get_type_name(),$sformatf("RX_DONE:Time=%0t P_DATA_reg=%h but---> Expected=%h\n",$time,seq_item_sb.P_DATA_reg,check_frame),UVM_MEDIUM)
+					`uvm_info("Scoreboard - UART_RX",$sformatf("RX_DONE:Time=%0t P_DATA_reg=%h Also---> Expected=%h\n",$time,seq_item_sb_t.P_DATA_reg,check_frame[8:1]),UVM_MEDIUM)
 					correct_count++;
 				end
-				check_valid_flag_RX_hex();
 
-			endtask
+				// Parity Check
 
-			task check_valid_flag_RX_hex();
-				if(seq_item_sb.data_valid_reg !=1'b1 ) begin
-					`uvm_error(get_type_name(),$sformatf("RX_ERROR:Time=%0t data_valid_reg=%b but---> Expected= 1 \n",$time,seq_item_sb.data_valid_reg));
-					error_count++;
+				if(parity_enable_reserved) begin
+
+					if ( parity_type_reserved == EVEN ) begin
+
+						if (check_frame[9] != ^check_frame[8:1]) begin
+							if (seq_item_sb_t.par_err_reg) begin
+								`uvm_warning("Scoreboard UART_RX (-ve)",$sformatf("RX_DONE:Time=%0t Input Parity wrong TB Must be Fixed Expected Even Parity \n ",$time))
+							end
+							else begin
+								`uvm_error("Scoreboard UART_RX (-ve)",$sformatf("RX_DONE:Time=%0t Input Parity wrong and RX Not flagging Parity Error \n ",$time))
+								error_count++;
+							end
+						end
+
+					end 
+					else if (parity_type_reserved == ODD ) begin
+						if (check_frame[9] != ~(^check_frame[8:1]) ) begin
+							if (seq_item_sb_t.par_err_reg) begin
+								`uvm_warning("Scoreboard UART_RX (-ve)",$sformatf("RX_DONE:Time=%0t Input Parity wrong TB Must be Fixed Expected ODD Parity \n ",$time))
+							end
+							else begin
+								`uvm_error("Scoreboard UART_RX (-ve)",$sformatf("RX_DONE:Time=%0t Input Parity wrong and RX Not flagging Parity Error \n ",$time))
+								error_count++;
+
+							end
+						end
+					end	
+					
 				end
+				
+				
+				// Stop  Bit Check
+
+				if(parity_enable_reserved) begin
+					stop_location = 10;
+				end 
 				else begin
-					`uvm_info(get_type_name(),$sformatf("RX_DONE:Time=%0t data_valid_reg=%b but---> Expected= 1 \n",$time,seq_item_sb.data_valid_reg),UVM_MEDIUM);
-					correct_count++;
-				end
-			endtask
+					stop_location = 9;
 
-			task golden_model(uart_seq_item seq_item_sb_t);
-				if(seq_item_sb.RX_IN==0 && seq_item_sb.rst!=0) begin
-					flag=1;
 				end
-				if(flag) begin
-					counter=counter+1;
-				end
-				if(counter==10) begin
-					if (!uvm_resource_db#(logic [7:0])::read_by_name(get_full_name(),"frame_t", frame)) begin
-  						`uvm_error("ResourceDB", "Failed to get frame_t")
+
+
+				if (check_frame[stop_location] != 1'b1 ) begin
+					if (seq_item_sb_t.stp_error_reg) begin
+						`uvm_warning("Scoreboard UART_RX (-ve): ",$sformatf("RX_DONE:Time=%0t Input Stop bit  wrong TB Must be Fixed Expected Stop bit = 1 \n ",$time))
+					end
+					else begin
+						`uvm_error("Scoreboard UART_RX (-ve): ",$sformatf("RX_DONE:Time=%0t Input Stop Bit  wrong and RX Not flagging Stop Bit Error \n ",$time))
+						 error_count++;
+
 					end
 				end
-				if(counter==11) begin
-					check_result_RX_hex(frame);
+
+				// Data Valid Check 
+
+				if(seq_item_sb_t.data_valid_reg !=1'b1 ) begin
+					`uvm_error("Scoreboard - UART_RX",$sformatf("RX_ERROR:Time=%0t data_valid_reg=%b but---> Expected= 1 \n",$time,seq_item_sb_t.data_valid_reg));
+					error_count++;
+				end
+				else begin
+					`uvm_info("Scoreboard - UART_RX",$sformatf("RX_DONE:Time=%0t data_valid_reg=%b Also---> Expected= 1 \n",$time,seq_item_sb_t.data_valid_reg),UVM_MEDIUM);
+					correct_count++;
+				end
+
+			endtask
+
+
+
+			task golden_model(uart_seq_item seq_item_sb_t);
+
+			    `uvm_info("Scoreboard - UART_RX",$sformatf("UART RX Received  :%s",seq_item_sb_t.convert2string()),UVM_MEDIUM)
+
+				if(seq_item_sb_t.RX_IN === 1'b0 && seq_item_sb_t.rst !==0 && flag === 1'b0 ) begin
+					flag=1;
+					if (seq_item_sb_t.PAR_EN === PAR_ENABLE) begin
+						parity_enable_reserved = PAR_ENABLE ;
+						parity_type_reserved = seq_item_sb_t.PAR_TYP ;
+						end_count = 11;
+					end
+
+					else begin
+						parity_enable_reserved = PAR_DISABLE ;
+						end_count = 10;
+					end
+				end
+
+				if(flag) begin
+					Frame_Collected[counter] = seq_item_sb_t.RX_IN ;
+					counter = counter + 1;
+
+				end
+
+				if(counter === end_count && flag) begin
+					check_result_RX_hex(Frame_Collected ,seq_item_sb_t , parity_enable_reserved , parity_type_reserved );
 					counter=0;
 					flag=0;
+					Frame_Collected = 0 ;
 				end
 			endtask
 
@@ -84,15 +163,14 @@ package uart_scoreboard_pkg;
 				super.run_phase(phase);
 				forever begin
 					sb_fifo.get(seq_item_sb);
-				`uvm_info("score_board(UART_RX)",$sformatf("Done in UART DUT:%s",seq_item_sb.convert2string()),UVM_MEDIUM)
 					golden_model(seq_item_sb);
 				end
 			endtask
 
 			function void report_phase(uvm_phase phase);
 				super.report_phase(phase);
-				`uvm_info("run_phase",$sformatf("totall successful transaction=%d",correct_count/2),UVM_MEDIUM)
-				`uvm_info("run_phase",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
+				`uvm_info("Scoreboard UART_RX Reporting",$sformatf("Totall Successful Transaction=%d",correct_count/2),UVM_MEDIUM)
+				`uvm_info("Scoreboard UART_RX Reporting",$sformatf("Totall Error Transaction=%d",error_count/2),UVM_MEDIUM)
 			endfunction
 
 	endclass

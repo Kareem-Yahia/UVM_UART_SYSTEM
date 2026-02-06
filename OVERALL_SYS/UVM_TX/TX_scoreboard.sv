@@ -2,6 +2,8 @@ package TX_scoreboard_pkg;
 
 	import TX_seq_item_pkg::*;
 	import uvm_pkg::*;
+	import global_pkg::*;
+	
 	`include "uvm_macros.svh"
 
 	class TX_scoreboard extends uvm_scoreboard;
@@ -13,9 +15,16 @@ package TX_scoreboard_pkg;
 		
 		int error_count=0;
 		int correct_count=0;
-		static int flag=0;
-		static int counter=0;
-		logic [7:0] frame;
+		
+		int flag=0;
+		int end_count = 0 ;
+		int counter=0;
+
+		bit parity_enable_reserved =  PAR_ENABLE;
+		bit parity_type_reserved = EVEN ;
+		logic parity_ex ;
+		logic [7:0] p_data_reserved = 0;
+		logic [10:0] frame_collected = 0;
 
 
 
@@ -36,73 +45,93 @@ package TX_scoreboard_pkg;
 			endfunction
 
 
-			/*
-			task check_data_sent_from_TX(input [7:0] DATA_t,input parity_type=EVEN,input parity_enable=1);
-				if (parity_type== EVEN)
-						parity_ex=^(DATA_t);
-					else
-						parity_ex=~(^(DATA_t));
+			
+			task check_data_sent_from_TX(TX_seq_item seq_item_sb_t);
 
-				if (parity_enable)
-					end_count=11;
-				else
-					end_count=10;
-								Frame_Collected=0;
+				if(seq_item_sb_t.Data_Valid === 1'b1  && seq_item_sb_t.rst !==0 && flag === 1'b0 ) begin
+					flag=1;
+					p_data_reserved  = seq_item_sb_t.P_DATA ;
 
-				//Here We Collect Frame
-					
-					repeat(prescaler_time_sync) @(negedge SYS_TOP.TX_CLK);
-				Frame_Collected[0]=TX_OUT;
+					if (seq_item_sb_t.PAR_EN === PAR_ENABLE) begin
+						
+						parity_enable_reserved = PAR_ENABLE ;
+						parity_type_reserved = seq_item_sb_t.PAR_TYP ;
 
-				for(int i=1;i<end_count;i++) begin
-					@(negedge SYS_TOP.TX_CLK)
-					Frame_Collected[i]=TX_OUT;
+						if (parity_type_reserved== EVEN) begin
+							parity_ex=^(p_data_reserved);
+						end
+						else begin
+							parity_ex=~(^(p_data_reserved));
+
+						end
+
+						end_count = 11;
+					end
+
+					else begin
+						parity_enable_reserved = PAR_DISABLE ;
+						end_count = 10;
+					end
 				end
-				check_results_out_off_system(DATA_t);
-				 @(negedge TX_CLK_TB);
+
+				if(flag) begin
+					frame_collected[counter] = seq_item_sb_t.TX_OUT ;
+					counter = counter + 1;
+
+				end
+
+				if(counter === end_count && flag) begin
+					check_results_out_off_system( p_data_reserved, parity_ex ,frame_collected ,parity_enable_reserved );
+					counter=0;
+					flag=0;
+					frame_collected = 0 ;
+					parity_ex = 0 ;
+					p_data_reserved = 0 ;
+				end
+
+
 			endtask
 
 
-			task check_results_out_off_system (input [7:0] DATA_t,input parity_enable=1);
-				 @(negedge SYS_TOP.TX_CLK);
-				if(DATA_t !=Frame_Collected[8:1]) begin
-					$display("TX_ERROR:Time=%0t DATA=%0b  but---> Expected=%0b\n",$time,Frame_Collected[8:1],DATA_t);
+			task check_results_out_off_system (input [7:0] p_data_reserved, input parity_ex ,input [10:0] frame_collected , input parity_enable_reserved);
+
+				if(p_data_reserved !=frame_collected[8:1]) begin
+					`uvm_error("Scoreboard - UART_TX" , $sformatf("TX_ERROR:Time=%0t DATA=%0b  but---> Expected=%0b\n",$time,frame_collected[8:1],p_data_reserved) );
 					error_count++;
 				end
 				else begin
-					$display("TX_DONE:Time=%0t DATA=%0b  and---> Expected=%0b\n",$time,Frame_Collected[8:1],DATA_t);
+					`uvm_info("Scoreboard - UART_TX" , $sformatf("TX_DONE:Time=%0t DATA=%0b  Also---> Expected=%0b\n",$time,frame_collected[8:1],p_data_reserved) ,  UVM_MEDIUM);
 					correct_count++;
 				end
 
-				if(parity_enable) begin
-					if(parity_ex !=Frame_Collected[9]) begin
-						$display("TX_ERROR:Time=%0t parity=%0b  but---> Expected=%0b\n",$time,Frame_Collected[9],parity_ex);
+				if(parity_enable_reserved) begin
+					if(parity_ex !=frame_collected[9]) begin
+						`uvm_error("Scoreboard - UART_TX" , $sformatf("TX_ERROR:Time=%0t parity=%0b  but---> Expected=%0b\n",$time,frame_collected[9],parity_ex));
 						error_count++;
 					end
 					else begin
-						$display("TX_DONE:Time=%0t parity=%0b  and---> Expected=%0b\n",$time,Frame_Collected[9],parity_ex);
+						`uvm_info("Scoreboard - UART_TX" , $sformatf("TX_DONE:Time=%0t parity=%0b  and---> Expected=%0b\n",$time,frame_collected[9],parity_ex) , UVM_MEDIUM );
 						correct_count++;
 					end
-				end		
+				end	
+
 			endtask
-			*/
-
-
-
+			
+		
 
 			task run_phase(uvm_phase phase);
 				super.run_phase(phase);
 				forever begin
 					sb_fifo.get(seq_item_sb);
-				`uvm_info("score_board(TX)",$sformatf("Done in TX DUT:%s",seq_item_sb.convert2string()),UVM_MEDIUM)
-					//check_TXronizer();
+				    `uvm_info("Scoreboard UART_TX",$sformatf("UART TX Frame Sent : %s",seq_item_sb.convert2string()),UVM_MEDIUM)
+					check_data_sent_from_TX(seq_item_sb);
 				end
 			endtask
 
 			function void report_phase(uvm_phase phase);
 				super.report_phase(phase);
-				`uvm_info("run_phase",$sformatf("totall successful transaction=%d",correct_count/2),UVM_MEDIUM)
-				`uvm_info("run_phase",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
+				`uvm_info("Scoreboard UART_TX Reporting",$sformatf("totall successful transaction=%d",correct_count/2),UVM_MEDIUM)
+				`uvm_info("Scoreboard UART_TX Reporting",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
 			endfunction
 
 	endclass

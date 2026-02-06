@@ -37,11 +37,11 @@ package SYNC_scoreboard_pkg;
 
 			task check_syncronizer();
 				if(seq_item_sb.sync_bus !=seq_item_sb.unsync_bus) begin
-					`uvm_error(get_type_name(),$sformatf("synchronizer_ERROR:Time=%0t out=%8b but---> Expected=%8b\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus));
+					`uvm_error("Scoreboard SYNC",$sformatf("synchronizer_ERROR:Time=%0t out=%8b but---> Expected=%8b\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus));
 					error_count++;
 				end
 				else begin
-					`uvm_info(get_type_name(),$sformatf("synchronizer_Done:Time=%0t out=%8b and---> Expected=%8b\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus),UVM_MEDIUM);
+					`uvm_info("Scoreboard SYNC",$sformatf("synchronizer_Done:Time=%0t out=%8b and---> Expected=%8b\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus),UVM_MEDIUM);
 					correct_count++;
 				end
 
@@ -52,15 +52,15 @@ package SYNC_scoreboard_pkg;
 				super.run_phase(phase);
 				forever begin
 					sb_fifo.get(seq_item_sb);
-				`uvm_info("score_board(SYNC)",$sformatf("Done in SYNC DUT:%s",seq_item_sb.convert2string()),UVM_MEDIUM)
+				`uvm_info("Scoreboard SYNC",$sformatf("SYNC Received:%s",seq_item_sb.convert2string()),UVM_MEDIUM)
 					check_syncronizer();
 				end
 			endtask
 
 			function void report_phase(uvm_phase phase);
 				super.report_phase(phase);
-				`uvm_info("run_phase",$sformatf("totall successful transaction=%d",correct_count/2),UVM_MEDIUM)
-				`uvm_info("run_phase",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
+				`uvm_info("Scoreboard SYNC Reporting",$sformatf("totall successful transaction=%d",correct_count/2),UVM_MEDIUM)
+				`uvm_info("Scoreboard SYNC Reporting",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
 			endfunction
 
 	endclass

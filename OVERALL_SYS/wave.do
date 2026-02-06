@@ -56,7 +56,7 @@ add wave -noupdate /top/sys/RX/asser1/stp_error_reg_check_parity_exist_sva
 add wave -noupdate /top/sys/RX/asser1/stp_error_reg_check_no_parity_sva
 add wave -noupdate /top/sys/DATA_SYNC/asser2/check_func_async_sva
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {1644505330 ps} 0}
+WaveRestoreCursors {{Cursor 1} {19523000 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -72,4 +72,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {2834630860 ps}
+WaveRestoreZoom {0 ps} {177164440 ps}

@@ -23,9 +23,28 @@ package TX_seq_item_pkg;
 	endfunction 
 
 		function string convert2string();
-			return $sformatf("%s rst=%b, P_DATA=%b Data_Valid=%b  PAR_TYP=%b PAR_EN=%b TX_OUT=%h  busy=%b"
-				,super.convert2string(),rst,P_DATA,Data_Valid,PAR_TYP,PAR_EN,TX_OUT,busy);
+		  string s, s1, s2, s3;
+
+		  s1 = "\n--------------------------------------------------------------------------------\n";
+		  s2 = "| rst |   P_DATA   | Data_Valid | PAR_TYP | PAR_EN | TX_OUT | busy |\n";
+		  s3 = "--------------------------------------------------------------------------------\n";
+
+		  s = { s1, s2, s3,
+		        $sformatf(
+		          "|  %1b  |   0x%02h    |     %1b      |    %1b     |    %1b    |  0x%02h |  %1b   |\n",
+		          rst,
+		          P_DATA,
+		          Data_Valid,
+		          PAR_TYP,
+		          PAR_EN,
+		          TX_OUT,
+		          busy
+		        )
+		      };
+
+		  return s;
 		endfunction
+
 		
 		function string convert2string_stimulus ();
 			return $sformatf("%s rst=%b, P_DATA=%b Data_Valid=%b  PAR_TYP=%b PAR_EN=%b TX_OUT=%h  busy=%b"

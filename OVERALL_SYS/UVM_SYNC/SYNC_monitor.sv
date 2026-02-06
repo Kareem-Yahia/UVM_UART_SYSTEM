@@ -26,23 +26,34 @@ package SYNC_monitor_pkg;
 				my_seq_item=SYNC_seq_item::type_id::create("my_seq_item",this);
 				
 				mon1();
-				mon_ap.write(my_seq_item);
 
-				`uvm_info("run_phase",my_seq_item.convert2string(),UVM_HIGH)
+				mon_ap.write(my_seq_item);
+				
+
+
+				`uvm_info(get_type_name(),my_seq_item.convert2string(),UVM_HIGH)
 			end
 		endtask
 
 		task mon1();
-			  @(posedge SYNCvif_monitor.bus_enable);
-			 my_seq_item.rst=SYNCvif_monitor.rst;
-			 my_seq_item.unsync_bus=SYNCvif_monitor.unsync_bus;
-			 my_seq_item.bus_enable=SYNCvif_monitor.bus_enable;
-			 repeat(3) @ (SYNCvif_monitor.REF_CLK);
-			 my_seq_item.sync_bus=SYNCvif_monitor.sync_bus;
-			 my_seq_item.enable_pulse=SYNCvif_monitor.enable_pulse;
+			@(posedge SYNCvif_monitor.bus_enable);
+
+			@(posedge SYNCvif_monitor.REF_CLK);
+
+			my_seq_item.rst 						=SYNCvif_monitor.rst;
+			my_seq_item.unsync_bus 					=SYNCvif_monitor.unsync_bus;
+			my_seq_item.bus_enable 					=SYNCvif_monitor.bus_enable;
+			 
+			repeat(2) @ (posedge SYNCvif_monitor.REF_CLK);
+					  @ (negedge SYNCvif_monitor.REF_CLK);
+
+			my_seq_item.sync_bus 					=SYNCvif_monitor.sync_bus;
+			my_seq_item.enable_pulse 				=SYNCvif_monitor.enable_pulse;
 
             //just for testing 
-            my_seq_item.internal_enable=SYNCvif_monitor.internal_enable;
+            
+            my_seq_item.internal_enable 			=SYNCvif_monitor.internal_enable;
+            
             my_seq_item.internal_out_of_synchronizer=SYNCvif_monitor.internal_out_of_synchronizer;
             
             ///////////////////////////////////////////////
