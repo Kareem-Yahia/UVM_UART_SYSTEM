@@ -1,7 +1,7 @@
 
 	class TX_agent extends uvm_agent;
 		`uvm_component_utils(TX_agent)
-		//TX_sequencer sequencer;
+		TX_sequencer sequencer;
 		//TX_driver driver;
 		TX_monitor monitor;
 		TX_config_obj TX_config_obj_agent;

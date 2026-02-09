@@ -1,7 +1,3 @@
-package SYNC_config_obj_pkg;
-
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class SYNC_config_obj extends uvm_object;
 		`uvm_object_utils(SYNC_config_obj)
@@ -16,5 +12,3 @@ package SYNC_config_obj_pkg;
 		endfunction
 
 	endclass
-
-endpackage

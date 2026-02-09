@@ -1,11 +1,3 @@
-package sys_agent_pkg;
-	import sys_seq_item_pkg::*;
-	import sys_driver_pkg::*;
-	import sys_sequencer_pkg::*;
-	import sys_monitor_pkg::*;
-	import sys_config_obj_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class sys_agent extends uvm_agent;
 		`uvm_component_utils(sys_agent)
@@ -48,5 +40,3 @@ package sys_agent_pkg;
 		endfunction
 
 	endclass
-
-endpackage

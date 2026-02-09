@@ -1,9 +1,3 @@
-package uart_env_pkg;
-	import uart_scoreboard_pkg::*;
-	import uart_cov_pkg::*;
-	import uart_agent_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class uart_env extends uvm_env;
 		`uvm_component_utils(uart_env)
@@ -33,6 +27,3 @@ package uart_env_pkg;
 		endfunction
 
 	endclass
-
-
-endpackage

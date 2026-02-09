@@ -1,9 +1,3 @@
-package SYNC_env_pkg;
-	import SYNC_scoreboard_pkg::*;
-	import SYNC_cov_pkg::*;
-	import SYNC_agent_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class SYNC_env extends uvm_env;
 		`uvm_component_utils(SYNC_env)
@@ -33,6 +27,3 @@ package SYNC_env_pkg;
 		endfunction
 
 	endclass
-
-
-endpackage

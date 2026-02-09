@@ -1,11 +1,3 @@
-package uart_agent_pkg;
-	import uart_seq_item_pkg::*;
-	import uart_driver_pkg::*;
-	import uart_sequencer_pkg::*;
-	import uart_monitor_pkg::*;
-	import uart_config_obj_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class uart_agent extends uvm_agent;
 		`uvm_component_utils(uart_agent)
@@ -48,5 +40,3 @@ package uart_agent_pkg;
 		endfunction
 
 	endclass
-
-endpackage

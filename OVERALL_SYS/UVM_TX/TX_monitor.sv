@@ -1,8 +1,3 @@
-package TX_monitor_pkg;
-		import TX_seq_item_pkg::*;
-		import TX_config_obj_pkg::*;
-		import uvm_pkg::*;
-		`include "uvm_macros.svh"
 
 	class TX_monitor extends uvm_monitor;
 			`uvm_component_utils(TX_monitor)
@@ -50,5 +45,3 @@ package TX_monitor_pkg;
 		endtask
 
 	endclass
-
-endpackage

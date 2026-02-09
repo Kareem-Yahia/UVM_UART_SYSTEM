@@ -1,10 +1,4 @@
-package uart_test_pkg;
-	import uart_config_obj_pkg::*;
-	import uart_sequence_pkg::*;
-	import uart_env_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
-	
+
 	class uart_base_test extends uvm_test;
 		`uvm_component_utils(uart_base_test)
 
@@ -104,4 +98,3 @@ package uart_test_pkg;
 	  endfunction 
 
 	endclass 
-endpackage

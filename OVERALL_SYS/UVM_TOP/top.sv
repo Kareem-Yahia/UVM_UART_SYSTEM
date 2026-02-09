@@ -1,8 +1,11 @@
 `timescale 1ns/1ps
 
-import sys_test_pkg::*;
 import uvm_pkg::*;
+import global_pkg::*;
+
 `include "uvm_macros.svh"
+`include "file_includes.svh"
+
 
 module top();
 

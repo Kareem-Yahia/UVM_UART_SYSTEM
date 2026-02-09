@@ -1,9 +1,3 @@
-package uart_driver_pkg;
-
-  import uvm_pkg::*;
-  import uart_config_obj_pkg::*;
-  import uart_seq_item_pkg::*; 
-  `include "uvm_macros.svh"
 
   class uart_driver extends uvm_driver #(uart_seq_item);
           `uvm_component_utils(uart_driver)
@@ -51,4 +45,3 @@ package uart_driver_pkg;
 
   endclass
   
-endpackage

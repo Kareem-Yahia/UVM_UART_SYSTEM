@@ -1,55 +1,68 @@
-package SYNC_cov_pkg;
-	import uvm_pkg::*;
-	import SYNC_seq_item_pkg::*;
-    `include "uvm_macros.svh"
 
-    class SYNC_cov extends uvm_component;
+class SYNC_cov extends uvm_component;
 
     `uvm_component_utils(SYNC_cov)
+    
     uvm_analysis_export #(SYNC_seq_item) cov_export;
     uvm_tlm_analysis_fifo #(SYNC_seq_item) cov_fifo;
+    
     SYNC_seq_item seq_item_cov;
 
-   /*
+
     covergroup cg_SYNC;
-            a:coverpoint seq_item_cov.in1 iff(seq_item_cov.rst_n_in){
-                    bins bin0={0};
-                    bins bin1={1};
-                }
-               b: coverpoint seq_item_cov.in2 iff(seq_item_cov.rst_n_in){
-                    bins bin0={0};
-                    bins bin1={1};
-                }
-               c: coverpoint seq_item_cov.in3 iff(seq_item_cov.rst_n_in){
-                    bins bin0={0};
-                    bins bin1={1};
-                }
-                
-                d:coverpoint seq_item_cov.rst_n_in{
-                    bins bin0={0};
-                    bins bin1={1};
-                }
-                e:coverpoint seq_item_cov.wait_plz iff(seq_item_cov.rst_n_in){
-                    bins bin0={0};
-                    bins bin1={1};
-                }
 
-                //in cross coverage we want to know how many times we get into write scenario and read scenario
 
-                cross_coverage: cross a,b,c iff(seq_item_cov.rst_n_in) {
-                    bins bin_write_address=binsof(a.bin0) && binsof(b.bin0) && binsof(c.bin0);
-                    bins bin_write_data=   binsof(a.bin0) && binsof(b.bin0) && binsof(c.bin1);
-                    bins bin_read_address= binsof(a.bin1) && binsof(b.bin1) && binsof(c.bin0);
-                    bins bin_read_data=    binsof(a.bin1) && binsof(b.bin1) && binsof(c.bin1);
-                    option.cross_auto_bin_max=0;
-                }
+       unsync_bus:coverpoint seq_item_cov.unsync_bus iff(seq_item_cov.rst){
+                bins bin_wr_cmd             = {8'hAA} ;
+                bins bin_rd_cmd             = {8'hBB} ;
+                bins bin_alu_with_op_cmd    = {8'hCC} ;
+                bins bin_alu_without_op_cmd = {8'hDD} ;
+            }
 
-            endgroup
-        */
+        bus_enable:coverpoint seq_item_cov.bus_enable iff(seq_item_cov.rst){
+                bins bin0                   ={0};
+                bins bin1                   ={1};
+            }
+
+        sync_bus:coverpoint seq_item_cov.sync_bus iff(seq_item_cov.rst){
+                bins bin_wr_cmd             = {8'hAA} ;
+                bins bin_rd_cmd             = {8'hBB} ;
+                bins bin_alu_with_op_cmd    = {8'hCC} ;
+                bins bin_alu_without_op_cmd = {8'hDD} ;
+   
+            }
+
+        enable_pulse:coverpoint seq_item_cov.enable_pulse iff(seq_item_cov.rst){
+                bins bin0                   ={0};
+                bins bin1                   ={1};
+            }                                 
+
+        cross_coverage: cross unsync_bus,bus_enable,sync_bus,enable_pulse  iff(seq_item_cov.rst)  {
+            bins bin_complete_full_sync_wr_cmd = binsof(sync_bus.bin_wr_cmd) &&  
+                                          binsof(unsync_bus.bin_wr_cmd) && 
+                                          binsof(enable_pulse.bin1) ;
+
+
+            bins bin_complete_full_sync_rd_cmd = binsof(sync_bus.bin_rd_cmd) &&  
+                                          binsof(unsync_bus.bin_rd_cmd) && 
+                                          binsof(enable_pulse.bin1) ;
+
+            bins bin_complete_full_sync_alu_with_op_cmd = binsof(sync_bus.bin_alu_with_op_cmd) &&  
+                                          binsof(unsync_bus.bin_alu_with_op_cmd) && 
+                                          binsof(enable_pulse.bin1) ;
+                                          
+            bins bin_complete_full_sync_alu_without_op_cmd = binsof(sync_bus.bin_alu_without_op_cmd) &&  
+                                          binsof(unsync_bus.bin_alu_without_op_cmd) && 
+                                          binsof(enable_pulse.bin1) ;
+        }
+        
+        endgroup        
+    
 
         function new(string name="SYNC_cov", uvm_component parent=null);
          super.new(name, parent);
-         //cg_SYNC=new;
+         cg_SYNC=new;
+        
         endfunction 
 
         function void build_phase (uvm_phase phase);
@@ -69,10 +82,9 @@ package SYNC_cov_pkg;
     	super.run_phase(phase);
     	forever begin
     		cov_fifo.get(seq_item_cov);
-           // cg_SYNC.sample();
+            cg_SYNC.sample();
     	end
     endtask : run_phase
 
 	endclass
     
-endpackage

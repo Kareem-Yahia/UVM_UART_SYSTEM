@@ -1,10 +1,3 @@
-package sys_sequence_pkg ;
-
-	import sys_seq_item_pkg::*;
-	import uvm_pkg::*;
-	import global_pkg::*;
-	
-	`include "uvm_macros.svh"
 
 	class sys_sequence_base extends uvm_sequence #(sys_seq_item);
 
@@ -97,6 +90,43 @@ package sys_sequence_pkg ;
 			finish_item(seq_item);
 		endtask
 
+		task initialize_uart_parity_en_even(input logic [5:0] prescale = PRESCALE_X8) ;
+			hold();
+			Register_File_Write_command(2,{prescale,1'b0,1'b1},parity_type,parity_enable);
+			hold();
+
+			parity_type=EVEN;
+			parity_enable=PAR_ENABLE;
+		endtask
+
+		task initialize_uart_parity_en_odd(input logic [5:0] prescale = PRESCALE_X8) ;
+			hold();
+			Register_File_Write_command(2,{prescale,1'b1,1'b1},parity_type,parity_enable);
+			hold();
+
+			parity_type=ODD;
+			parity_enable=PAR_ENABLE;
+
+		endtask
+
+		task initialize_uart_parity_disable(input logic [5:0] prescale = PRESCALE_X8) ;
+			hold();
+			Register_File_Write_command(2,{prescale,1'b0,1'b0},parity_type,parity_enable);
+			hold();
+
+			parity_type=EVEN;
+			parity_enable=PAR_DISABLE;
+		endtask
+
+		task pre_body ;
+			parity_type=EVEN;
+			parity_enable=PAR_ENABLE;
+		endtask
+
+
+
+
+
 	endclass
 
 	class sys_sequence_reset extends sys_sequence_base;
@@ -131,49 +161,44 @@ package sys_sequence_pkg ;
 
 		task body;
 			seq_item = sys_seq_item::type_id::create ("seq_item");
+	
+			//////////////////////////////////////////////////////////////////////////////////////////////
+
+			initialize_uart_parity_en_even(PRESCALE_X8);
+
+
+			parity_type=EVEN;
+			parity_enable=PAR_ENABLE;
+		
+
+
+			Register_File_Write_command(5,20,parity_type,parity_enable);
+			Register_File_Write_command(6,25,parity_type,parity_enable);
+			Register_File_Read_command(5,parity_type,parity_enable);
+			Register_File_Read_command(6,parity_type,parity_enable);
+
+			//////////////////////////////////////////////////////////////////////////////////////////////
+		
 			
+			initialize_uart_parity_en_odd(PRESCALE_X8);
+			
+
+			Register_File_Write_command(5,20,parity_type,parity_enable);
+			Register_File_Write_command(6,25,parity_type,parity_enable);
+			Register_File_Read_command(5,parity_type,parity_enable);
+			Register_File_Read_command(6,parity_type,parity_enable);
 
 			//////////////////////////////////////////////////////////////////////////////////////////////
 
-			hold();
-					Register_File_Write_command(2,8'b1000_01);
-			hold();
-
-			parity_type=EVEN;
-			parity_enable=PAR_ENABLE;
-
-			Register_File_Write_command(5,20,parity_type,parity_enable);
-			Register_File_Write_command(6,25,parity_type,parity_enable);
-			Register_File_Read_command(5,parity_type,parity_enable);
-			Register_File_Read_command(6,parity_type,parity_enable);
-
-
 			
-			hold();
-					Register_File_Write_command(2,8'b1000_11,parity_type,parity_enable);
-			hold();
-			parity_type=ODD;
-			parity_enable=PAR_ENABLE;
+			initialize_uart_parity_disable(PRESCALE_X8);
 
 			Register_File_Write_command(5,20,parity_type,parity_enable);
 			Register_File_Write_command(6,25,parity_type,parity_enable);
 			Register_File_Read_command(5,parity_type,parity_enable);
 			Register_File_Read_command(6,parity_type,parity_enable);
-
-
 			
-			hold();
-						Register_File_Write_command(2,8'b1000_00,parity_type,parity_enable);
-			hold();
-			parity_type=EVEN;
-			parity_enable=PAR_DISABLE;
-
-			Register_File_Write_command(5,20,parity_type,parity_enable);
-			Register_File_Write_command(6,25,parity_type,parity_enable);
-			Register_File_Read_command(5,parity_type,parity_enable);
-			Register_File_Read_command(6,parity_type,parity_enable);
-
-
+			
 
 			///////////////////////////////////////////////////////////////////////////////////////////////
 		endtask
@@ -181,5 +206,3 @@ package sys_sequence_pkg ;
 
 
 	endclass
-
-endpackage

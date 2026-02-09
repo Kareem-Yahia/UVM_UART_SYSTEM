@@ -1,8 +1,3 @@
-package uart_monitor_pkg;
-		import uart_seq_item_pkg::*;
-		import uart_config_obj_pkg::*;
-		import uvm_pkg::*;
-		`include "uvm_macros.svh"
 
 	class uart_monitor extends uvm_monitor;
 			`uvm_component_utils(uart_monitor)
@@ -52,4 +47,3 @@ package uart_monitor_pkg;
 
 
 	endclass
-endpackage

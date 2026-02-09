@@ -1,8 +1,3 @@
-package uart_sequence_pkg ;
-
-	import uart_seq_item_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class uart_sequence_reset extends uvm_sequence #(uart_seq_item);
 		`uvm_object_utils (uart_sequence_reset)
@@ -117,5 +112,3 @@ package uart_sequence_pkg ;
 		endtask
 
 	endclass
-
-endpackage

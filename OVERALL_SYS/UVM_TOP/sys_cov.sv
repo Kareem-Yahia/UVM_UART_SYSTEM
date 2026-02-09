@@ -1,7 +1,3 @@
-package sys_cov_pkg;
-	import uvm_pkg::*;
-	import sys_seq_item_pkg::*;
-    `include "uvm_macros.svh"
 
     class sys_cov extends uvm_component;
 
@@ -75,4 +71,3 @@ package sys_cov_pkg;
 
 	endclass
     
-endpackage

@@ -1,15 +1,7 @@
-package FIFO_agent_pkg;
-	import FIFO_seq_item_pkg::*;
-	//import FIFO_driver_pkg::*;
-	//import FIFO_sequencer_pkg::*;
-	import FIFO_monitor_pkg::*;
-	import FIFO_config_obj_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class FIFO_agent extends uvm_agent;
 		`uvm_component_utils(FIFO_agent)
-		//FIFO_sequencer sequencer;
+		FIFO_sequencer sequencer;
 		//FIFO_driver driver;
 		FIFO_monitor monitor;
 		FIFO_config_obj FIFO_config_obj_agent;
@@ -50,5 +42,3 @@ package FIFO_agent_pkg;
 		endfunction
 
 	endclass
-
-endpackage

@@ -1,7 +1,3 @@
-package sys_seq_item_pkg;
-
-	import uvm_pkg::*;
-	`include "uvm_macros.svh";
 
 	class sys_seq_item extends uvm_sequence_item;
 		`uvm_object_utils(sys_seq_item)
@@ -30,5 +26,4 @@ package sys_seq_item_pkg;
 				,super.convert2string(),RST,RX_IN);
 		endfunction 
 
-	endclass 
-endpackage 
+	endclass  

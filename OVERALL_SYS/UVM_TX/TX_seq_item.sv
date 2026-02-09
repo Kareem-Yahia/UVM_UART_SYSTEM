@@ -1,7 +1,3 @@
-package TX_seq_item_pkg;
-
-	import uvm_pkg::*;
-	`include "uvm_macros.svh";
 
 	class TX_seq_item extends uvm_sequence_item;
 		`uvm_object_utils(TX_seq_item)
@@ -51,5 +47,4 @@ package TX_seq_item_pkg;
 				,super.convert2string(),rst,P_DATA,Data_Valid,PAR_TYP,PAR_EN,TX_OUT,busy);
 		endfunction 
 
-	endclass 
-endpackage 
+	endclass  

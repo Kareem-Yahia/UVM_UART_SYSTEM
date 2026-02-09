@@ -1,8 +1,3 @@
-package FIFO_scoreboard_pkg;
-
-	import FIFO_seq_item_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class FIFO_scoreboard extends uvm_scoreboard;
 		`uvm_component_utils(FIFO_scoreboard)
@@ -52,5 +47,3 @@ package FIFO_scoreboard_pkg;
 			endfunction
 
 	endclass
-
-endpackage 

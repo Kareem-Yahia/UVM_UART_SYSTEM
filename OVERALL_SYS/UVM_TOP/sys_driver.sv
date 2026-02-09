@@ -1,9 +1,3 @@
-package sys_driver_pkg;
-
-  import uvm_pkg::*;
-  import sys_config_obj_pkg::*;
-  import sys_seq_item_pkg::*; 
-  `include "uvm_macros.svh"
 
   class sys_driver extends uvm_driver #(sys_seq_item);
           `uvm_component_utils(sys_driver)
@@ -49,4 +43,3 @@ package sys_driver_pkg;
 
   endclass
   
-endpackage

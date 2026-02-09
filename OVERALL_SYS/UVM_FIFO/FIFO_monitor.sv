@@ -1,8 +1,3 @@
-package FIFO_monitor_pkg;
-		import FIFO_seq_item_pkg::*;
-		import FIFO_config_obj_pkg::*;
-		import uvm_pkg::*;
-		`include "uvm_macros.svh"
 
 	class FIFO_monitor extends uvm_monitor;
 			`uvm_component_utils(FIFO_monitor)
@@ -49,4 +44,3 @@ package FIFO_monitor_pkg;
             ///////////////////////////////////////////////
 		endtask
 	endclass
-endpackage

@@ -1,8 +1,3 @@
-package sys_scoreboard_pkg;
-
-	import sys_seq_item_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class sys_scoreboard extends uvm_scoreboard;
 		`uvm_component_utils(sys_scoreboard)
@@ -53,6 +48,4 @@ package sys_scoreboard_pkg;
 				`uvm_info("run_phase",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
 			endfunction
 
-	endclass
-
-endpackage 
+	endclass 

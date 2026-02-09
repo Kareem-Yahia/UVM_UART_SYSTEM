@@ -1,15 +1,7 @@
-package TX_agent_pkg;
-	import TX_seq_item_pkg::*;
-	//import TX_driver_pkg::*;
-	//import TX_sequencer_pkg::*;
-	import TX_monitor_pkg::*;
-	import TX_config_obj_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class TX_agent extends uvm_agent;
 		`uvm_component_utils(TX_agent)
-		//TX_sequencer sequencer;
+		TX_sequencer sequencer;
 		//TX_driver driver;
 		TX_monitor monitor;
 		TX_config_obj TX_config_obj_agent;
@@ -50,5 +42,3 @@ package TX_agent_pkg;
 		endfunction
 
 	endclass
-
-endpackage

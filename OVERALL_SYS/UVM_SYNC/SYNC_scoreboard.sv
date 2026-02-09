@@ -1,8 +1,3 @@
-package SYNC_scoreboard_pkg;
-
-	import SYNC_seq_item_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class SYNC_scoreboard extends uvm_scoreboard;
 		`uvm_component_utils(SYNC_scoreboard)
@@ -64,5 +59,4 @@ package SYNC_scoreboard_pkg;
 			endfunction
 
 	endclass
-
-endpackage 
+ 

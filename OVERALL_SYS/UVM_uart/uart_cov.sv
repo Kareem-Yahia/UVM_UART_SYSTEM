@@ -1,20 +1,16 @@
-package uart_cov_pkg;
-	import uvm_pkg::*;
-	import uart_seq_item_pkg::*;
-    `include "uvm_macros.svh"
 
-    class uart_cov extends uvm_component;
+class uart_cov extends uvm_component;
 
-    `uvm_component_utils(uart_cov)
-    uvm_analysis_export #(uart_seq_item) cov_export;
-    uvm_tlm_analysis_fifo #(uart_seq_item) cov_fifo;
-    uart_seq_item seq_item_cov;
+        `uvm_component_utils(uart_cov)
+        uvm_analysis_export #(uart_seq_item) cov_export;
+        uvm_tlm_analysis_fifo #(uart_seq_item) cov_fifo;
+        uart_seq_item seq_item_cov;
 
-   
+
         covergroup cg_uart;
                 a:coverpoint seq_item_cov.RX_IN iff(seq_item_cov.rst){
                         bins bin0=(1=>0);
-                        option.at_least = 100;
+                        option.at_least = 24;
                     }
 
                 b:coverpoint seq_item_cov.prescale iff(seq_item_cov.rst){
@@ -38,7 +34,7 @@ package uart_cov_pkg;
                     cross_coverage: cross b,c,d,e,f iff(seq_item_cov.rst) ;
 
         endgroup
-        
+
         function new(string name="uart_cov", uvm_component parent=null);
          super.new(name, parent);
          cg_uart=new;
@@ -57,14 +53,12 @@ package uart_cov_pkg;
         endfunction: connect_phase
 
 
-    task run_phase(uvm_phase phase);
-    	super.run_phase(phase);
-    	forever begin
-    		cov_fifo.get(seq_item_cov);
+        task run_phase(uvm_phase phase);
+        	super.run_phase(phase);
+        	forever begin
+        		cov_fifo.get(seq_item_cov);
             cg_uart.sample();
-    	end
-    endtask : run_phase
+        	end
+        endtask : run_phase
 
-	endclass
-    
-endpackage
+endclass

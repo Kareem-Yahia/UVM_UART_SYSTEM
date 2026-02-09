@@ -1,10 +1,3 @@
-package uart_scoreboard_pkg;
-
-	import uart_seq_item_pkg::*;
-	import uvm_pkg::*;
-	import global_pkg::*;
-	
-	`include "uvm_macros.svh"
 
 	class uart_scoreboard extends uvm_scoreboard;
 		`uvm_component_utils(uart_scoreboard)
@@ -174,5 +167,3 @@ package uart_scoreboard_pkg;
 			endfunction
 
 	endclass
-
-endpackage 

@@ -1,8 +1,3 @@
-package sys_sequencer_pkg;
-
-	import sys_seq_item_pkg::*;
-	import uvm_pkg::*;
-		`include "uvm_macros.svh"
 
 	class sys_sequencer extends uvm_sequencer #(sys_seq_item);
 		`uvm_component_utils(sys_sequencer)
@@ -12,4 +7,3 @@ package sys_sequencer_pkg;
 		endfunction
 
 	endclass
-endpackage

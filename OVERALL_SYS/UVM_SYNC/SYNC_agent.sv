@@ -1,15 +1,7 @@
-package SYNC_agent_pkg;
-	import SYNC_seq_item_pkg::*;
-	//import SYNC_driver_pkg::*;
-	//import SYNC_sequencer_pkg::*;
-	import SYNC_monitor_pkg::*;
-	import SYNC_config_obj_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class SYNC_agent extends uvm_agent;
 		`uvm_component_utils(SYNC_agent)
-		//SYNC_sequencer sequencer;
+		SYNC_sequencer sequencer;
 		//SYNC_driver driver;
 		SYNC_monitor monitor;
 		SYNC_config_obj SYNC_config_obj_agent;
@@ -50,5 +42,3 @@ package SYNC_agent_pkg;
 		endfunction
 
 	endclass
-
-endpackage

@@ -1,7 +1,3 @@
-package FIFO_config_obj_pkg;
-
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class FIFO_config_obj extends uvm_object;
 		`uvm_object_utils(FIFO_config_obj)
@@ -16,5 +12,3 @@ package FIFO_config_obj_pkg;
 		endfunction
 
 	endclass
-
-endpackage

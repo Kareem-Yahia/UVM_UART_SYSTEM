@@ -1,7 +1,3 @@
-package sys_config_obj_pkg;
-
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class sys_config_obj extends uvm_object;
 		`uvm_object_utils(sys_config_obj)
@@ -16,5 +12,3 @@ package sys_config_obj_pkg;
 		endfunction
 
 	endclass
-
-endpackage

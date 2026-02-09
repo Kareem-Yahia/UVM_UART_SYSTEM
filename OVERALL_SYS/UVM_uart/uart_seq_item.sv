@@ -1,7 +1,3 @@
-package uart_seq_item_pkg;
-
-	import uvm_pkg::*;
-	`include "uvm_macros.svh";
 
 	class uart_seq_item extends uvm_sequence_item;
 		`uvm_object_utils(uart_seq_item)
@@ -56,5 +52,4 @@ package uart_seq_item_pkg;
 				,super.convert2string(),rst,prescale,PAR_EN,PAR_TYP,RX_IN);
 		endfunction 
 
-	endclass 
-endpackage 
+	endclass  

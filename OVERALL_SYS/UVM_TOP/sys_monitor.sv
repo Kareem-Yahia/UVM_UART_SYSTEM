@@ -1,8 +1,3 @@
-package sys_monitor_pkg;
-		import sys_seq_item_pkg::*;
-		import sys_config_obj_pkg::*;
-		import uvm_pkg::*;
-		`include "uvm_macros.svh"
 
 	class sys_monitor extends uvm_monitor;
 			`uvm_component_utils(sys_monitor)
@@ -43,4 +38,3 @@ package sys_monitor_pkg;
             ///////////////////////////////////////////////
 		endtask
 	endclass
-endpackage

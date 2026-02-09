@@ -1,9 +1,3 @@
-package FIFO_env_pkg;
-	import FIFO_scoreboard_pkg::*;
-	import FIFO_cov_pkg::*;
-	import FIFO_agent_pkg::*;
-	import uvm_pkg::*;
-	`include "uvm_macros.svh"
 
 	class FIFO_env extends uvm_env;
 		`uvm_component_utils(FIFO_env)
@@ -33,6 +27,3 @@ package FIFO_env_pkg;
 		endfunction
 
 	endclass
-
-
-endpackage

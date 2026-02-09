@@ -1,8 +1,3 @@
-package SYNC_monitor_pkg;
-		import SYNC_seq_item_pkg::*;
-		import SYNC_config_obj_pkg::*;
-		import uvm_pkg::*;
-		`include "uvm_macros.svh"
 
 	class SYNC_monitor extends uvm_monitor;
 			`uvm_component_utils(SYNC_monitor)
@@ -59,4 +54,3 @@ package SYNC_monitor_pkg;
             ///////////////////////////////////////////////
 		endtask
 	endclass
-endpackage

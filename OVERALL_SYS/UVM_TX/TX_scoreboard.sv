@@ -1,10 +1,4 @@
-package TX_scoreboard_pkg;
 
-	import TX_seq_item_pkg::*;
-	import uvm_pkg::*;
-	import global_pkg::*;
-	
-	`include "uvm_macros.svh"
 
 	class TX_scoreboard extends uvm_scoreboard;
 		`uvm_component_utils(TX_scoreboard)
@@ -134,6 +128,4 @@ package TX_scoreboard_pkg;
 				`uvm_info("Scoreboard UART_TX Reporting",$sformatf("totall error transaction=%d",error_count/2),UVM_MEDIUM)
 			endfunction
 
-	endclass
-
-endpackage 
+	endclass 
