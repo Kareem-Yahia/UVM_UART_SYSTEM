@@ -8,3 +8,6 @@
 wlft*
 tcl_stacktrace.txt
 work
+.$UVM_Architecture.drawio.bkp
+SYS_TOP_tb.sv
+old_run_sim.do
