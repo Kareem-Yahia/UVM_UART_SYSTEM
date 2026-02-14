@@ -6,7 +6,7 @@ class uart_cov extends uvm_component;
         uvm_tlm_analysis_fifo #(uart_seq_item) cov_fifo;
         uart_seq_item seq_item_cov;
 
-
+        
         covergroup cg_uart;
                 a:coverpoint seq_item_cov.RX_IN iff(seq_item_cov.rst){
                         bins bin0=(1=>0);
@@ -31,7 +31,7 @@ class uart_cov extends uvm_component;
                     
                      
 
-                    cross_coverage: cross b,c,d,e,f iff(seq_item_cov.rst) ;
+                cross_coverage: cross b,c,d,e,f iff(seq_item_cov.rst) ;
 
         endgroup
 

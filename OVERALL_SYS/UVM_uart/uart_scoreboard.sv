@@ -9,6 +9,9 @@
 		int error_count=0;
 		int correct_count=0;
 
+		// Declaring Analysis Port To Send to Top Level Scoreboard
+		uvm_analysis_port # (uart_seq_item) sb_port_uart_rx ; 
+
 		// Golden Model Logic
 
 		int flag=0;
@@ -27,6 +30,7 @@
 				super.build_phase(phase);
 				sb_export=new("sb_export",this);
 				sb_fifo=new("sb_fifo",this);
+				sb_port_uart_rx = new ("sb_port_uart_rx", this);
 
 			endfunction
 
@@ -121,7 +125,6 @@
 
 			task golden_model(uart_seq_item seq_item_sb_t);
 
-			    `uvm_info("Scoreboard - UART_RX",$sformatf("UART RX Received  :%s",seq_item_sb_t.convert2string()),UVM_MEDIUM)
 
 				if(seq_item_sb_t.RX_IN === 1'b0 && seq_item_sb_t.rst !==0 && flag === 1'b0 ) begin
 					flag=1;
@@ -140,7 +143,7 @@
 				if(flag) begin
 					Frame_Collected[counter] = seq_item_sb_t.RX_IN ;
 					counter = counter + 1;
-
+			   		`uvm_info("Scoreboard - UART_RX",$sformatf("UART RX Received  :%s",seq_item_sb_t.convert2string()),UVM_HIGH)
 				end
 
 				if(counter === end_count && flag) begin
@@ -148,6 +151,8 @@
 					counter=0;
 					flag=0;
 					Frame_Collected = 0 ;
+
+					sb_port_uart_rx.write(seq_item_sb_t);
 				end
 			endtask
 

@@ -5,6 +5,11 @@
 
 		uvm_analysis_export #(TX_seq_item) sb_export;
 		uvm_tlm_analysis_fifo #(TX_seq_item) sb_fifo;
+
+		// Declaring Analysis Port To Send to Top Level Scoreboard
+		uvm_analysis_port # (TX_seq_item) sb_port_uart_tx ; 
+
+		
 		TX_seq_item seq_item_sb;
 		
 		int error_count=0;
@@ -30,6 +35,7 @@
 				super.build_phase(phase);
 				sb_export=new("sb_export",this);
 				sb_fifo=new("sb_fifo",this);
+				sb_port_uart_tx = new ("sb_port_uart_tx", this);
 
 			endfunction
 
@@ -69,8 +75,10 @@
 				end
 
 				if(flag) begin
+					
 					frame_collected[counter] = seq_item_sb_t.TX_OUT ;
 					counter = counter + 1;
+				`uvm_info("Scoreboard UART_TX",$sformatf("UART TX Frame Sent : %s",seq_item_sb.convert2string()),UVM_HIGH)
 
 				end
 
@@ -117,8 +125,8 @@
 				super.run_phase(phase);
 				forever begin
 					sb_fifo.get(seq_item_sb);
-				    `uvm_info("Scoreboard UART_TX",$sformatf("UART TX Frame Sent : %s",seq_item_sb.convert2string()),UVM_MEDIUM)
 					check_data_sent_from_TX(seq_item_sb);
+					sb_port_uart_tx.write(seq_item_sb);
 				end
 			endtask
 

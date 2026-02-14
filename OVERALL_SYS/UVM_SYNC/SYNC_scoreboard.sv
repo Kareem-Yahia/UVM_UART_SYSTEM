@@ -4,6 +4,10 @@
 
 		uvm_analysis_export #(SYNC_seq_item) sb_export;
 		uvm_tlm_analysis_fifo #(SYNC_seq_item) sb_fifo;
+
+		// Declaring Analysis Port To Send to Top Level Scoreboard
+		uvm_analysis_port # (SYNC_seq_item) sb_port_uart_sync ; 
+
 		SYNC_seq_item seq_item_sb;
 		
 		int error_count=0;
@@ -22,6 +26,7 @@
 				super.build_phase(phase);
 				sb_export=new("sb_export",this);
 				sb_fifo=new("sb_fifo",this);
+				sb_port_uart_sync = new ("sb_port_uart_sync",this);
 
 			endfunction
 
@@ -32,11 +37,11 @@
 
 			task check_syncronizer();
 				if(seq_item_sb.sync_bus !=seq_item_sb.unsync_bus) begin
-					`uvm_error("Scoreboard SYNC",$sformatf("synchronizer_ERROR:Time=%0t out=%8b but---> Expected=%8b\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus));
+					`uvm_error("Scoreboard SYNC",$sformatf("\n\n *******  synchronizer_ERROR:Time=%0t out=%8b but---> Expected=%8b\n\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus));
 					error_count++;
 				end
 				else begin
-					`uvm_info("Scoreboard SYNC",$sformatf("synchronizer_Done:Time=%0t out=%8b and---> Expected=%8b\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus),UVM_MEDIUM);
+					`uvm_info("Scoreboard SYNC",$sformatf("\n\n *******  synchronizer_Done:Time=%0t out=%8b and---> Expected=%8b\n\n",$time,seq_item_sb.sync_bus,seq_item_sb.unsync_bus),UVM_MEDIUM);
 					correct_count++;
 				end
 
@@ -47,8 +52,9 @@
 				super.run_phase(phase);
 				forever begin
 					sb_fifo.get(seq_item_sb);
-				`uvm_info("Scoreboard SYNC",$sformatf("SYNC Received:%s",seq_item_sb.convert2string()),UVM_MEDIUM)
+				`uvm_info("Scoreboard SYNC",$sformatf("\n\n ******* SYNC Received:%s \n\n",seq_item_sb.convert2string()),UVM_MEDIUM)
 					check_syncronizer();
+					sb_port_uart_sync.write(seq_item_sb);
 				end
 			endtask
 

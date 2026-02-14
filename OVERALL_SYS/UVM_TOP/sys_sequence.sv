@@ -173,6 +173,7 @@
 
 
 			Register_File_Write_command(5,20,parity_type,parity_enable);
+			/*
 			Register_File_Write_command(6,25,parity_type,parity_enable);
 			Register_File_Read_command(5,parity_type,parity_enable);
 			Register_File_Read_command(6,parity_type,parity_enable);
@@ -199,7 +200,7 @@
 			Register_File_Read_command(6,parity_type,parity_enable);
 			
 			
-
+			*/
 			///////////////////////////////////////////////////////////////////////////////////////////////
 		endtask
 

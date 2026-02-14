@@ -12,6 +12,12 @@ class top_env extends uvm_env;
 	sys_vsequencer sys_vsequencer_inst;
 
 
+
+
+	// Top Scorebord
+
+	top_sys_scoreboard top_sys_scorebord_inst;
+
 	function new(string name="top_env" , uvm_component parent=null);
 		super.new(name,parent);
 	endfunction
@@ -29,6 +35,11 @@ class top_env extends uvm_env;
 		TX_myenv = TX_env::type_id::create("TX_myenv", this);
 		sys_vsequencer_inst = sys_vsequencer::type_id::create("sys_vsequencer_inst", this);
 
+		// TOP Scoreboard
+
+		top_sys_scorebord_inst=top_sys_scoreboard::type_id::create("top_sys_scorebord_inst",this);
+
+
 	endfunction
 
 	function void connect_phase(uvm_phase phase);
@@ -39,6 +50,14 @@ class top_env extends uvm_env;
 		sys_vsequencer_inst.TX_sequencer_inst = TX_myenv.agent.sequencer ;
 		sys_vsequencer_inst.SYNC_sequencer_inst = SYNC_myenv.agent.sequencer ;
 		sys_vsequencer_inst.FIFO_sequencer_inst = FIFO_myenv.agent.sequencer;
+
+
+
+		sys_myenv.sys_env_ap.connect(top_sys_scorebord_inst.sb_export_sys);
+		uart_myenv.score_board.sb_port_uart_rx.connect (top_sys_scorebord_inst.sb_export_uart_rx) ;	
+		SYNC_myenv.score_board.sb_port_uart_sync.connect (top_sys_scorebord_inst.sb_export_sync) ;	
+		TX_myenv.score_board.sb_port_uart_tx.connect (top_sys_scorebord_inst.sb_export_uart_tx) ;	
+
 	endfunction
 
 endclass

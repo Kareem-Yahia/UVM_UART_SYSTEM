@@ -14,7 +14,8 @@ vlog  ./UVM_TOP/top.sv  \
 +incdir+UVM_uart \
 +cover \
 +define+UART_RX_assertion \
-+define+DATA_SYNC_sva 
++define+DATA_SYNC_sva  +define+UVM_REPORT_DISABLE_FILE_LINE
+
 
 vsim -voptargs=+acc work.top +UVM_TESTNAME=sys_smoke_test -cover -classdebug -sv_seed 25 -l transcript.log
 

@@ -49,7 +49,6 @@ class sys_vseq_smoke_test extends sys_vseq_base;
 
 
 	virtual task body ();
-	super.body();
 
 	`uvm_info(get_type_name(),
 		          "\n    ==================== RESET ====================",
